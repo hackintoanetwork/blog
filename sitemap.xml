@@ -2,32 +2,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://hackintoanetwork.github.io/blog/2023-starlink-router-gen2-xss-eng/</loc>
+    <loc>https://hackintoanetwork.github.io/blog/blog/2023-starlink-router-gen2-xss-eng/</loc>
   </url><url>
-    <loc>https://hackintoanetwork.github.io/blog/2023-starlink-router-gen2-xss-kor/</loc>
+    <loc>https://hackintoanetwork.github.io/blog/blog/2023-starlink-router-gen2-xss-kor/</loc>
+  </url><url>
+    <loc>https://hackintoanetwork.github.io/blog/blog/</loc>
+  </url><url>
+    <loc>https://hackintoanetwork.github.io/blog/tags/bug-bounty/</loc>
+  </url><url>
+    <loc>https://hackintoanetwork.github.io/blog/categories/</loc>
+  </url><url>
+    <loc>https://hackintoanetwork.github.io/blog/tags/dishy/</loc>
+  </url><url>
+    <loc>https://hackintoanetwork.github.io/blog/tags/exploit/</loc>
+  </url><url>
+    <loc>https://hackintoanetwork.github.io/blog/tags/hacking/</loc>
   </url><url>
     <loc>https://hackintoanetwork.github.io/blog/</loc>
   </url><url>
-    <loc>https://hackintoanetwork.github.io/tags/bug-bounty/</loc>
+    <loc>https://hackintoanetwork.github.io/blog/tags/router/</loc>
   </url><url>
-    <loc>https://hackintoanetwork.github.io/categories/</loc>
+    <loc>https://hackintoanetwork.github.io/blog/search/</loc>
   </url><url>
-    <loc>https://hackintoanetwork.github.io/tags/dishy/</loc>
+    <loc>https://hackintoanetwork.github.io/blog/tags/spacex/</loc>
   </url><url>
-    <loc>https://hackintoanetwork.github.io/tags/exploit/</loc>
+    <loc>https://hackintoanetwork.github.io/blog/tags/starlink/</loc>
   </url><url>
-    <loc>https://hackintoanetwork.github.io/tags/hacking/</loc>
-  </url><url>
-    <loc>https://hackintoanetwork.github.io/</loc>
-  </url><url>
-    <loc>https://hackintoanetwork.github.io/tags/router/</loc>
-  </url><url>
-    <loc>https://hackintoanetwork.github.io/search/</loc>
-  </url><url>
-    <loc>https://hackintoanetwork.github.io/tags/spacex/</loc>
-  </url><url>
-    <loc>https://hackintoanetwork.github.io/tags/starlink/</loc>
-  </url><url>
-    <loc>https://hackintoanetwork.github.io/tags/</loc>
+    <loc>https://hackintoanetwork.github.io/blog/tags/</loc>
   </url>
 </urlset>
