@@ -2,70 +2,70 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tags on hackintoanetwork</title>
-    <link>https://hackintoanetwork.github.io/blog/tags/</link>
+    <link>https://hackintoanetwork.com/tags/</link>
     <description>Recent content in Tags on hackintoanetwork</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://hackintoanetwork.github.io/blog/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://hackintoanetwork.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Bug bounty</title>
-      <link>https://hackintoanetwork.github.io/blog/tags/bug-bounty/</link>
+      <link>https://hackintoanetwork.com/tags/bug-bounty/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://hackintoanetwork.github.io/blog/tags/bug-bounty/</guid>
+      <guid>https://hackintoanetwork.com/tags/bug-bounty/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Dishy</title>
-      <link>https://hackintoanetwork.github.io/blog/tags/dishy/</link>
+      <link>https://hackintoanetwork.com/tags/dishy/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://hackintoanetwork.github.io/blog/tags/dishy/</guid>
+      <guid>https://hackintoanetwork.com/tags/dishy/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Exploit</title>
-      <link>https://hackintoanetwork.github.io/blog/tags/exploit/</link>
+      <link>https://hackintoanetwork.com/tags/exploit/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://hackintoanetwork.github.io/blog/tags/exploit/</guid>
+      <guid>https://hackintoanetwork.com/tags/exploit/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Hacking</title>
-      <link>https://hackintoanetwork.github.io/blog/tags/hacking/</link>
+      <link>https://hackintoanetwork.com/tags/hacking/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://hackintoanetwork.github.io/blog/tags/hacking/</guid>
+      <guid>https://hackintoanetwork.com/tags/hacking/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Router</title>
-      <link>https://hackintoanetwork.github.io/blog/tags/router/</link>
+      <link>https://hackintoanetwork.com/tags/router/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://hackintoanetwork.github.io/blog/tags/router/</guid>
+      <guid>https://hackintoanetwork.com/tags/router/</guid>
       <description></description>
     </item>
     
     <item>
       <title>SpaceX</title>
-      <link>https://hackintoanetwork.github.io/blog/tags/spacex/</link>
+      <link>https://hackintoanetwork.com/tags/spacex/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://hackintoanetwork.github.io/blog/tags/spacex/</guid>
+      <guid>https://hackintoanetwork.com/tags/spacex/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Starlink</title>
-      <link>https://hackintoanetwork.github.io/blog/tags/starlink/</link>
+      <link>https://hackintoanetwork.com/tags/starlink/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://hackintoanetwork.github.io/blog/tags/starlink/</guid>
+      <guid>https://hackintoanetwork.com/tags/starlink/</guid>
       <description></description>
     </item>
     
