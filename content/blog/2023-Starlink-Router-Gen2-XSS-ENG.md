@@ -67,7 +67,7 @@ Typically, the captive portal page should only be activated at the router's inte
 
 Using such a bug along with the Cross-Site Scripting (XSS) vulnerability allows for the circumvention of the browser's Same-Origin Policy (SOP), enabling control over both the Router and Dishy.
 
-[It can be confirmed that the same XSS vulnerability occurs at the address [http://192.168.100.1/setup](http://192.168.100.1/setup) as well.](/blog/2023-Starlink-Router-Gen2-XSS/192.168.100.1_PoC.mov)
+[It can be confirmed that the same XSS vulnerability occurs at the address http://192.168.100.1/setup as well.](/blog/2023-Starlink-Router-Gen2-XSS/192.168.100.1_PoC.mov)
 
 It can be confirmed that the same XSS vulnerability occurs at the address [http://192.168.100.1/setup](http://192.168.100.1/setup) as well.
 
