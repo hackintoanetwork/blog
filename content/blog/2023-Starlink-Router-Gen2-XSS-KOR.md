@@ -67,9 +67,9 @@ tags: ["SpaceX", "Starlink", "Router", "Dishy" ,"Exploit", "Hacking", "Bug bount
 
 이러한 버그와 Cross-Site Scripting (XSS) 취약점을 이용하면 브라우저의 Same-Origin Policy (SOP)를 우회하여 Router와 Dishy 모두를 제어할 수 있게 됩니다.
 
-[http://192.168.100.1/setup 주소에서도 똑같이 XSS 취약점이 발생하는 것을 확인할 수 있습니다.](/blog/2023-Starlink-Router-Gen2-XSS/192.168.100.1_PoC.mov)
+[192.168.100.1_PoC.mov](/blog/2023-Starlink-Router-Gen2-XSS/192.168.100.1_PoC.mov)
 
-http://192.168.100.1/setup 주소에서도 똑같이 XSS 취약점이 발생하는 것을 확인할 수 있습니다.
+[http://192.168.100.1/setup](http://192.168.100.1/setup) 주소에서도 똑같이 XSS 취약점이 발생하는 것을 확인할 수 있습니다.
 
 이제 이러한 버그를 활용하여 어떻게 `Router`와 `Dishy`를 제어할 수 있는지 예제를 통해 살펴보겠습니다.
 
