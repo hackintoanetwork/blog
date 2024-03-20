@@ -223,7 +223,7 @@ Dec 2023
 <hr>
 <p><img loading="lazy" src="/blog/2023-Starlink-Router-Gen2-XSS/img1.webp" alt="img1.webp"  />
 </p>
-<p>해당 취약점은 초기 라우터 설정 페이지(http://192.168.1.1/setup)에서 ssid 및 password 파라미터에 대한 입력값 필터링이 충분하지 않아 발생합니다.</p>
+<p>해당 취약점은 초기 라우터 설정 페이지(http://192.168.1.1/setup)에서 <code>ssid</code> 및 <code>password</code> 파라미터에 대한 입력값 필터링이 충분하지 않아 발생합니다.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
 </span></span><span style="display:flex;"><span>	&lt;<span style="color:#f92672">body</span>&gt;
 </span></span><span style="display:flex;"><span>		&lt;<span style="color:#f92672">h1</span>&gt;Proof of Concept&lt;/<span style="color:#f92672">h1</span>&gt;
@@ -291,7 +291,7 @@ Connection: close
 </li>
 <li>
 <p><strong>content-type: application/grpc-web+proto</strong></p>
-<p>전송되는 데이터가 gRPC 프로토콜을 사용하고, protobuf 형식으로 인코딩되었음을 나타냅니다.</p>
+<p>전송되는 데이터가 <code>gRPC</code> 프로토콜을 사용하고, <code>protobuf</code> 형식으로 인코딩되었음을 나타냅니다.</p>
 </li>
 <li>
 <p><strong>Request Body</strong></p>
@@ -312,7 +312,7 @@ Connection: close
 <p>물론 <code>Cross-Site Request Forgery (CSRF)</code> 공격이 가능한 시나리오일 수 있지만, 브라우저의 <code>Same-Origin Policy (SOP)</code> 때문에 이러한 공격이 제한됩니다.</p>
 <p>gRPC는 <code>application/grpc-web+proto</code>라는 특정한 <code>content-type</code> 헤더를 요구합니다.</p>
 <p>그러나, <code>Same-Origin Policy (SOP)</code>는 이 헤더를 브라우저가 다른 출처로부터 요청을 보낼 때 제거하도록 합니다.</p>
-<p>이로 인해 일반적인 상황에서는 외부에서 <code>Dishy</code> 장치로 gRPC 요청을 보내는 것이 불가능합니다.</p>
+<p>이로 인해 일반적인 상황에서는 외부에서 <code>Dishy</code> 장치로 <code>gRPC</code> 요청을 보내는 것이 불가능합니다.</p>
 <h2 id="xss--sop-우회를-위한-효과적인-방법">XSS : SOP 우회를 위한 효과적인 방법<a hidden class="anchor" aria-hidden="true" href="#xss--sop-우회를-위한-효과적인-방법">#</a></h2>
 <hr>
 <p>일반적으로 <code>Same-Origin Policy (SOP)</code>는 웹 브라우저가 다른 출처로부터의 요청을 제한합니다.</p>
