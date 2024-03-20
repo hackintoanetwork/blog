@@ -139,9 +139,9 @@ Nevertheless, this security flaw requires the attacker to have physical access t
 
 ---
 
-This brings us to the question, "Can't we just send the same request payload to perform a CSRF attack?"
+This brings us to the question, "Can't we just send the same request payload to perform a `CSRF (Cross-Site Request Forgery)` attack?"
 
-While `CSRF (Cross-Site Request Forgery)` might be a possible scenario, such attacks are limited by the browser's Same-Origin Policy (SOP).
+While `CSRF (Cross-Site Request Forgery)` might be a possible scenario, such attacks are limited by the browser's `Same-Origin Policy (SOP)`.
 
 gRPC requires a specific **`content-type`** header, which is **`application/grpc-web+proto`**.
 
