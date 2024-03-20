@@ -197,5 +197,5 @@ gRPC는 `application/grpc-web+proto`라는 특정한 `content-type` 헤더를 �
 # **Time Line**
 
 - 2023-10-10 : Vulnerability reported to SpaceX/Starlink
-- 2023-10-12 : Recognized as a security vulnerability with a severity of Moderate ( Reward $500 USD )
+- 2023-10-12 : Recognized as a security vulnerability with a severity of Moderate ( Reward `$500` USD )
 - 2023-11-01 : Patched in the latest release (The fix is in versions 2023.48.0 and up)
