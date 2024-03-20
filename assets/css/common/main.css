@@ -70,9 +70,3 @@ div.highlight:hover .copy-code,
 pre:hover .copy-code {
     display: block;
 }
-
-@media (max-width: 768px) {
-    code {
-        font-family: monospace;
-    }
-}
