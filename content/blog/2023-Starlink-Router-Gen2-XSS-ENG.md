@@ -9,7 +9,7 @@ tags: ["SpaceX", "Starlink", "Router", "Dishy" ,"Exploit", "Hacking", "Bug bount
 
 ---
 
-Through the XSS vulnerability present in the initial setup page of the second-generation router, an attacker can gain control of the Router and the Dishy.
+A `Cross-Site Scripting (XSS)` vulnerability in the initial captive portal page of the second-generation router could allow an attacker to take control of the `router` and `Dishy`.
 
 # **The Basics**
 
@@ -25,7 +25,7 @@ Through the XSS vulnerability present in the initial setup page of the second-ge
 
 ![img1.webp](/blog/2023-Starlink-Router-Gen2-XSS/img1.webp)
 
-This vulnerability arises due to insufficient input filtering for the ssid and password parameters on the initial router setup page ([http://192.168.1.1/setup](http://192.168.1.1/setup)).
+This vulnerability arises due to insufficient input filtering for the `ssid` and `password` parameters on the initial router setup page ([http://192.168.1.1/setup](http://192.168.1.1/setup)).
 
 ```html
 <html>
@@ -44,7 +44,7 @@ This vulnerability arises due to insufficient input filtering for the ssid and p
 <html>
 ```
 
-This XSS vulnerability can be triggered in conjunction with a CSRF (Cross-Site Request Forgery) attack as shown in the above PoC (Proof of Concept).
+This `Cross-Site Scripting (XSS)` vulnerability can be triggered in conjunction with a `CSRF (Cross-Site Request Forgery)` attack as shown in the above PoC (Proof of Concept).
 
 [reproduce(PoC).mov](/blog/2023-Starlink-Router-Gen2-XSS/reproduce(PoC).mov)
 
@@ -65,13 +65,13 @@ Typically, the captive portal page should only be activated at the router's inte
 
 (Normally, access to the captive portal page should not be possible at Dishy's internal address, 192.168.100.1.)
 
-Using such a bug along with the Cross-Site Scripting (XSS) vulnerability allows for the circumvention of the browser's Same-Origin Policy (SOP), enabling control over both the Router and Dishy.
+Using such a bug along with the `Cross-Site Scripting (XSS)` vulnerability allows for the circumvention of the browser's `Same-Origin Policy (SOP)`, enabling control over both the Router and Dishy.
 
 [192.168.100.1_PoC.mov](/blog/2023-Starlink-Router-Gen2-XSS/192.168.100.1_PoC.mov)
 
-It can be confirmed that the same XSS vulnerability occurs at the address [http://192.168.100.1/setup](http://192.168.100.1/setup) as well.
+It can be confirmed that the same `Cross-Site Scripting (XSS)` vulnerability occurs at the address [http://192.168.100.1/setup](http://192.168.100.1/setup) as well.
 
-Now, let's examine through an example how this bug can be exploited to gain control of the Router and Dishy.
+Now, let's examine through an example how this bug can be exploited to gain control of the `Router` and `Dishy`.
 
 ## Dishy Stow Request Analysis
 
@@ -80,10 +80,10 @@ Now, let's examine through an example how this bug can be exploited to gain cont
 
 ![Starlink Dishy Stow](/blog/2023-Starlink-Router-Gen2-XSS/gif1.gif)
 </center>
-When the 'Stow' command is issued from the administrator interface, the following HTTP Request is sent to 'Dishy'
+When the `Stow` command is issued from the administrator interface, the following HTTP Request is sent to `Dishy`
 
 
-(Note: The 'Stow' command allows the Dishy antenna to be folded for movement or storage.)
+(Note: The `Stow` command allows the `Dishy` antenna to be folded for movement or storage.)
 
 ```
 POST /SpaceX.API.Device.Device/Handle HTTP/1.1
@@ -141,27 +141,27 @@ Nevertheless, this security flaw requires the attacker to have physical access t
 
 This brings us to the question, "Can't we just send the same request payload to perform a CSRF attack?"
 
-While Cross-Site Request Forgery (CSRF) might be a possible scenario, such attacks are limited by the browser's Same-Origin Policy (SOP).
+While `CSRF (Cross-Site Request Forgery)` might be a possible scenario, such attacks are limited by the browser's Same-Origin Policy (SOP).
 
 gRPC requires a specific **`content-type`** header, which is **`application/grpc-web+proto`**.
 
-However, the Same-Origin Policy (SOP) mandates that this header is stripped by the browser when sending requests from a different origin.
+However, `SOP (the Same-Origin Policy)`  mandates that this header is stripped by the browser when sending requests from a different origin.
 
 This restriction prevents external sources from sending gRPC requests to **`Dishy`**.
 
-## XSS Vulnerabilities as the Most Effective Way to Bypass SOP
+## XSS: An Effective Way to Bypass SOP
 
 ---
 
-Normally, the Same-Origin Policy (SOP) restricts web browsers from making requests to different origins.
+Normally, the `Same-Origin Policy (SOP)` restricts web browsers from making requests to different origins.
 
-However, by exploiting an XSS vulnerability, an attacker can execute scripts within the victim's web browser.
+However, by exploiting an `Cross-Site Scripting (XSS)` vulnerability, an attacker can execute scripts within the victim's web browser.
 
 These scripts are considered as originating from the same source (i.e., the website the victim is currently accessing).
 
-As a result, the Same-Origin Policy (SOP) recognizes requests generated by these scripts as coming from the same origin, and thus the SOP restrictions do not apply in this case.
+As a result, the `Same-Origin Policy (SOP)` recognizes requests generated by these scripts as coming from the same origin, and thus the `Same-Origin Policy (SOP)` restrictions do not apply in this case.
 
-Therefore, in the case of CSRF attacks exploiting XSS vulnerabilities, especially for requests like gRPC that require a specific content-type header,
+Therefore, in the case of `CSRF (Cross-Site Request Forgery)` attacks exploiting `Cross-Site Scripting (XSS)` vulnerabilities, especially for requests like gRPC that require a specific content-type header,
 
 the attack script runs within the victim's browser, treating it as a legitimate request, thus including the specific content-type header in the request.
 
@@ -169,7 +169,7 @@ the attack script runs within the victim's browser, treating it as a legitimate 
 
 ---
 
-Therefore, leveraging the **`XSS`** vulnerability and the previously mentioned bug, the Payload for sending a gRPC request to **`Dishy`** would be as follows:
+Therefore, leveraging the **`Cross-Site Scripting (XSS)`** vulnerability and the previously mentioned bug, the Payload for sending a gRPC request to **`Dishy`** would be as follows:
 
 ```html
 <html>
@@ -201,5 +201,5 @@ Therefore, leveraging the **`XSS`** vulnerability and the previously mentioned b
 # **TimeLine**
 
 - 2023-10-10 : Vulnerability reported to SpaceX/Starlink
-- 2023-10-12 : Recognized as a security vulnerability with a severity of Moderate ( Reward $500 USD )
+- 2023-10-12 : Recognized as a security vulnerability with a severity of Moderate ( Reward `$500` USD )
 - 2023-11-01 : Patched in the latest release (The fix is in versions 2023.48.0 and up)
