@@ -9,7 +9,7 @@ tags: ["SpaceX", "Starlink", "Router", "Dishy" ,"Exploit", "Hacking", "Bug bount
 
 ---
 
-2세대 라우터의 초기 setup 페이지에서 발생하는 XSS 취약점을 통해 공격자는 Router 및 Dishy를 제어할 수 있습니다.
+2세대 라우터의 초기 `captive portal` 페이지에서 발생하는 `Cross-Site Scripting (XSS)` 취약점을 통해 공격자는 `Router` 및 `Dishy`를 제어할 수 있습니다.
 
 # **The Basics**
 
