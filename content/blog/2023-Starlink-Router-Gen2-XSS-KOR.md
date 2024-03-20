@@ -71,7 +71,7 @@ tags: ["SpaceX", "Starlink", "Router", "Dishy" ,"Exploit", "Hacking", "Bug bount
 
 [http://192.168.100.1/setup](http://192.168.100.1/setup) 주소에서도 똑같이 XSS 취약점이 발생하는 것을 확인할 수 있습니다.
 
-이제 이러한 버그를 활용하여 어떻게 `Router`와 `Dishy`를 제어할 수 있는지 예제를 통해 살펴보겠습니다.
+이제 이러한 버그를 활용하여 어떻게 `Router`와 `Dishy`를 제어할 수 있는지 살펴보겠습니다.
 
 ## Dishy Stow Request Analysis
 
