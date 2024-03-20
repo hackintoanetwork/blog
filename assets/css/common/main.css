@@ -55,6 +55,12 @@ code {
     direction: ltr;
 }
 
+.entry-header h1 code {
+    font-family: "Ubuntu Mono";
+    word-spacing: -7px;
+    direction: ltr;
+}
+
 div.highlight,
 pre {
     position: relative;
