@@ -1,6 +1,6 @@
 ---
 title: "2023 SpaceX / Starlink Router Gen 2 XSS (ENG)"
-description: "Found by @hackintoanetwork "
+description: "Found by Sehyoung Lee @hackintoanetwork"
 dateString: Dec 2023
 draft: false
 tags: ["SpaceX", "Starlink", "Router", "Dishy" ,"Exploit", "Hacking", "Bug bounty"]
