@@ -198,7 +198,7 @@
     padding: 4px 6px;
     font-size: 0.78em;
     line-height: 1.5;
-    background: var(--code-bg);
+    background: rgb(241, 241, 241);
     border-radius: 2px;
 }
 
