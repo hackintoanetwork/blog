@@ -25,7 +25,7 @@ tags: ["SpaceX", "Starlink", "Router", "Dishy" ,"Exploit", "Hacking", "Bug bount
 
 ![img1.webp](/blog/2023-Starlink-Router-Gen2-XSS/img1.webp)
 
-해당 취약점은 초기 라우터 설정 페이지(http://192.168.1.1/setup)에서 `ssid` 및 `password` 파라미터에 대한 입력값 필터링이 충분하지 않아 발생합니다.
+해당 취약점은 초기 라우터 설정 페이지(http://192.168.1.1/setup)에서 `ssid` 및 `password` 파라미터에 대한 입력 값 필터링이 충분하지 않아 발생합니다.
 
 ```html
 <html>
@@ -127,13 +127,11 @@ Connection: close
     요청 body에는 `grpc-web+proto` 형식의 데이터가 포함되어 있으며, 이 데이터는 `Stow` 명령의 세부 사항을 담고 있을 것 입니다.
     
 
-이 정보를 종합해보면, 사용자가 관리자 인터페이스를 사용하여 `Stow` 명령을 내릴 경우, 해당 명령은 gRPC를 통해 `Dishy` 장치로 전송되며, 이 과정에서 `Dishy`는 이동이 용이한 상태로 접혀집니다.
+이 정보를 종합해보면, 사용자가 관리자 인터페이스를 사용하여 `Stow` 명령을 내릴 경우, 해당 명령은 gRPC를 통해 `Dishy`로 전송되며, 이 과정에서 `Dishy`는 이동이 용이한 상태로 접혀집니다.
 
 하지만 Request를 살펴보면 해당 요청을 보내는 사용자에 대한 인증이 없다는 것을 알 수 있습니다.
 
-이 말은 관리자가 아닌 다른 누군가가 해당 요청을 똑같이 보내 무단으로 `Dishy`를 제어할 수 있음을 의미합니다.
-
-하지만 해당 취약점은 공격자가 로컬 네트워크에 물리적으로 접근할 수 있어야 하므로, 원격으로 발생할 수 있는 공격에 비해 공격 범위가 제한적입니다.
+이 말은 관리자가 아닌 다른 누군가가 해당 요청을 똑같이 보내 무단으로 `Dishy`를 제어할 수 있음을 의미하는데, 해당 취약점은 공격자가 로컬 네트워크에 물리적으로 접근할 수 있어야 하므로, 원격으로 발생할 수 있는 공격에 비해 공격 범위가 제한적입니다.
 
 ## **CSRF 공격의 가능성과 한계**
 
@@ -147,7 +145,7 @@ gRPC는 `application/grpc-web+proto`라는 특정한 `content-type` 헤더를 �
 
 그러나, `Same-Origin Policy (SOP)`는 이 헤더를 브라우저가 다른 출처로부터 요청을 보낼 때 제거하도록 합니다. 
 
-이로 인해 일반적인 상황에서는 외부에서 `Dishy` 장치로 `gRPC` 요청을 보내는 것이 불가능합니다.
+이로 인해 일반적인 상황에서는 외부에서 `Dishy`로 `gRPC` 요청을 보내는 것이 불가능합니다.
 
 ## XSS : SOP 우회를 위한 효과적인 방법
 
@@ -161,15 +159,13 @@ gRPC는 `application/grpc-web+proto`라는 특정한 `content-type` 헤더를 �
 
 이로 인해, `Same-Origin Policy (SOP)`는 이러한 스크립트에 의해 생성된 요청을 같은 출처의 요청으로 인식하며, 따라서 이 경우 `Same-Origin Policy (SOP)`의 제한이 적용되지 않습니다.
 
-따라서 gRPC 요청과 같이 특정 `content-type` 헤더를 요구하는 경우 `Cross-Site Scripting (XSS)` 취약점을 이용한 CSRF 공격에서는, 
-
-공격 스크립트가 피해자의 브라우저 내에서 실행되기 때문에 정상적인 요청으로 인식해서 이러한 특정한 `content-type` 헤더도 포함되어 요청이 전송됩니다. 
+따라서 gRPC 요청과 같이 특정 `content-type` 헤더를 요구하는 경우 `Cross-Site Scripting (XSS)` 취약점을 이용한 `Cross-Site Request Forgery (CSRF)` 공격에서는, 공격 스크립트가 피해자의 브라우저 내에서 실행되기 때문에 정상적인 요청으로 인식해서 이러한 특정한 `content-type` 헤더도 포함되어 요청이 전송됩니다. 
 
 ## PoC (Proof of Concept)
 
 ---
 
-따라서 `XSS`취약점과 앞에서 언급한 버그를 활용해서 `Dishy`에 gRPC 요청을 보내는 Payload는 다음과 같습니다.
+그러므로, `Cross-Site Scripting (XSS)` 취약점과 앞서 언급한 버그를 체이닝해서 `Dishy`에 `Stow` gRPC 요청을 보내는 페이로드는 다음과 같이 구성할 수 있습니다.
 
 ```html
 <html>
