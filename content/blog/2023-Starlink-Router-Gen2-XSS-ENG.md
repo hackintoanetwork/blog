@@ -165,7 +165,7 @@ Therefore, in a `Cross-Site Request Forgery (CSRF)` attack using a `Cross-Site S
 
 ---
 
-Therefore, by chaining the `Cross-Site Scripting (XSS)` vulnerability and the aforementioned `bug`, the `payload` for sending a `Stow gRPC` request to `Dishy` could be composed as follows
+So, by chaining the `Cross-Site Scripting (XSS)` vulnerability and the aforementioned `bug`, the `payload` for sending a `Stow gRPC` request to `Dishy` could be composed as follows
 
 ```html
 <html>
