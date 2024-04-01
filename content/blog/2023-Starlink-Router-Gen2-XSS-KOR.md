@@ -25,7 +25,7 @@ tags: ["SpaceX", "Starlink", "Router", "Dishy" ,"Exploit", "Hacking", "Bug bount
 
 ![img1.webp](/blog/2023-Starlink-Router-Gen2-XSS/img1.webp)
 
-해당 취약점은 초기 라우터 설정 페이지(http://192.168.1.1/setup)에서 `ssid` 및 `password` 파라미터에 대한 입력 값 필터링이 충분하지 않아 발생합니다.
+해당 취약점은 초기 `captive portal` 페이지(http://192.168.1.1/setup)에서 `ssid` 및 `password` 파라미터에 대한 입력 값 필터링이 충분하지 않아 발생합니다.
 
 ```html
 <html>
