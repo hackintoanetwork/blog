@@ -17,7 +17,7 @@ A `Cross-Site Scripting (XSS)` vulnerability in the initial `captive portal` pag
 
 - **Product :** Starlink Router Gen 2
 - **Tested Version :** 2022.32.0 (The fix is in versions 2023.48.0 and up)
-- **Bug-class** : XSS(Cross-Site Scripting)
+- **Bug-class** : XSS (Cross-Site Scripting)
 
 # ****Overview of the Vulnerability****
 
@@ -25,7 +25,7 @@ A `Cross-Site Scripting (XSS)` vulnerability in the initial `captive portal` pag
 
 ![img1.webp](/blog/2023-Starlink-Router-Gen2-XSS/img1.webp)
 
-The vulnerability is caused by insufficient filtering of input values for the `ssid` and `password` parameters on the initial router setup page ([http://192.168.1.1/setup](http://192.168.1.1/setup)).
+The vulnerability is caused by insufficient filtering of input values for the `ssid` and `password` parameters on the initial `captive portal` page ([http://192.168.1.1/setup](http://192.168.1.1/setup)).
 
 ```html
 <html>
