@@ -17,7 +17,7 @@ tags: ["SpaceX", "Starlink", "Router", "Dishy" ,"Exploit", "Hacking", "Bug bount
 
 - **Product :** Starlink Router Gen 2
 - **Tested Version :** 2022.32.0 (The fix is in versions 2023.48.0 and up)
-- **Bug-class** : XSS(Cross-Site Scripting)
+- **Bug-class** : XSS (Cross-Site Scripting)
 
 # ****Overview of the Vulnerability****
 
@@ -198,4 +198,4 @@ gRPC는 `application/grpc-web+proto`라는 특정한 `content-type` 헤더를 �
 
 - 2023-10-10 : Vulnerability reported to SpaceX/Starlink
 - 2023-10-12 : Recognized as a security vulnerability with a severity of Moderate ( Reward `$500` USD )
-- 2023-11-01 : Patched in the latest release (The fix is in versions 2023.48.0 and up)
+- 2023-11-01 : Patched in the latest release (The fix is in versions `2023.48.0` and up)
