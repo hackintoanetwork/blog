@@ -44,7 +44,7 @@ The vulnerability is caused by insufficient filtering of input values for the `s
 <html>
 ```
 
-This `Cross-Site Scripting (XSS)` vulnerability can be leveraged in conjunction with a `Cross-Site Request Forgery (CSRF)` attack, as shown in the proof of concept above.
+This `Cross-Site Scripting (XSS)` vulnerability can be leveraged in conjunction with a `Cross-Site Request Forgery (CSRF)` attack, as shown in the `proof of concept` above.
 
 [reproduce(PoC).mov](/blog/2023-Starlink-Router-Gen2-XSS/reproduce(PoC).mov)
 
@@ -52,18 +52,18 @@ This `Cross-Site Scripting (XSS)` vulnerability can be leveraged in conjunction 
 
 ---
 
-Normally, the `captive portal` page should only be active on the `router's internal address`, 192.168.1.1, but there was a bug in older routers that allowed the captive portal page to be unexpectedly accessible from `Dishy's internal address`, 192.168.100.1.
+Normally, the `captive portal` page should only be active on the `router's internal address`, 192.168.1.1, but there was a bug in older routers that allowed the `captive portal` page to be unexpectedly accessible from `Dishy's internal address`, 192.168.100.1.
 
-- [http://192.168.1.1/setup](http://192.168.1.1/setup) → The captive portal page is displayed correctly.
+- [http://192.168.1.1/setup](http://192.168.1.1/setup) → The `captive portal` page is displayed correctly.
     
     ![http://192.168.1.1/setup](/blog/2023-Starlink-Router-Gen2-XSS/img2.png)
     
-- [http://192.168.100.1/setup](http://192.168.100.1/setup) → The captive portal page is also displayed at this address.
+- [http://192.168.100.1/setup](http://192.168.100.1/setup) → The `captive portal` page is also displayed at this address.
     
     ![http://192.168.100.1/setup](/blog/2023-Starlink-Router-Gen2-XSS/img3.png)
     
 
-(Normally, access to the captive portal page should not be possible at Dishy's internal address, 192.168.100.1.)
+(Normally, access to the `captive portal` page should not be possible at `Dishy's internal address`, 192.168.100.1.)
 
 Using such a bug along with the `Cross-Site Scripting (XSS)` vulnerability allows for the circumvention of the browser's `Same-Origin Policy (SOP)`, enabling control over both the Router and Dishy.
 
@@ -80,6 +80,7 @@ Now let's see how i can leverage these bugs to take control of `Router` and `Dis
 
 ![Starlink Dishy Stow](/blog/2023-Starlink-Router-Gen2-XSS/gif1.gif)
 </center>
+
 When the `Stow` command is issued from the administrator interface, the following HTTP Request is sent to `Dishy`
 
 
