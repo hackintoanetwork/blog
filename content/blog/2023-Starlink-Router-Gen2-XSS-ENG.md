@@ -193,7 +193,7 @@ So, by chaining the `Cross-Site Scripting (XSS)` vulnerability and the aforement
 
 # CVE
 
-- [CVE-2023-49965](https://www.cve.org/CVERecord?id=CVE-2023-49965) (Reserved)
+- [CVE-2023-49965](https://www.cve.org/CVERecord?id=CVE-2023-49965)
 
 # **TimeLine**
 
