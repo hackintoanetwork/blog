@@ -192,7 +192,7 @@ gRPC는 `application/grpc-web+proto`라는 특정한 `content-type` 헤더를 �
 
 # CVE
 
-- [CVE-2023-49965](https://www.cve.org/CVERecord?id=CVE-2023-49965) (Reserved)
+- [CVE-2023-49965](https://www.cve.org/CVERecord?id=CVE-2023-49965)
 
 # **Time Line**
 
