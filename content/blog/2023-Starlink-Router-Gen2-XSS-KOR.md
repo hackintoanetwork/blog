@@ -161,7 +161,7 @@ Connection: close
 
 따라서 `gRPC` 요청과 같이 특정 `content-type` 헤더를 요구하는 경우 `Cross-Site Scripting (XSS)` 취약점을 이용한 `Cross-Site Request Forgery (CSRF)` 공격에서는, 공격 스크립트가 피해자의 브라우저 내에서 실행되기 때문에 정상적인 요청으로 인식해서 이러한 특정한 `content-type` 헤더도 포함되어 요청이 전송됩니다. 
 
-예를 들어, `192.168.100.1`의 버그와 `Cross-Site Scripting (XSS)` 취약점을 체이닝하면, 공격자는 악의적인 스크립트를 통해 사용자의 브라우저를 프록시 삼아 `Router`나 `Dishy`에 명령을 내리는 요청을 보낼 수 있습니다. (공격자는 `Dishy`의 `Stow(접기)` 및 `Unstow(펼치기)` 명령을 포함한 다양한 요청을 보낼 수 있습니다.)
+예를 들어, `192.168.100.1`의 버그와 `Cross-Site Scripting (XSS)` 취약점을 체이닝하면, 공격자는 악의적인 스크립트를 통해 사용자의 브라우저를 프록시 삼아 `Router`나 `Dishy`에 명령을 내리는 요청을 보낼 수 있습니다. (공격자는 `Dishy`의 `Stow` 및 `Unstow` 명령을 포함한 다양한 요청을 보낼 수 있습니다.)
 
 ## PoC (Proof of Concept)
 
