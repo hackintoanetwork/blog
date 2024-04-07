@@ -155,17 +155,20 @@ gRPC는 `application/grpc-web+proto`라는 특정한 `content-type` 헤더를 �
 
 하지만 `Cross-Site Scripting (XSS)` 취약점을 이용하면, 공격자는 피해자의 웹 브라우저 내에서 스크립트를 실행할 수 있습니다. 
 
-이 스크립트는 동일한 출처(즉, 피해자가 현재 접속해 있는 웹사이트)에서 실행된 것으로 간주됩니다. 
+XSS (Cross-Site Scripting) 취약점을 이용해 공격자가 삽입한 스크립트는 동일한 출처(즉, 피해자가 현재 접속해 있는 웹사이트)에서 실행된 것으로 간주됩니다. 
 
 이로 인해, `Same-Origin Policy (SOP)`는 이러한 스크립트에 의해 생성된 요청을 같은 출처의 요청으로 인식하며, 따라서 이 경우 `Same-Origin Policy (SOP)`의 제한이 적용되지 않습니다.
 
 따라서 gRPC 요청과 같이 특정 `content-type` 헤더를 요구하는 경우 `Cross-Site Scripting (XSS)` 취약점을 이용한 `Cross-Site Request Forgery (CSRF)` 공격에서는, 공격 스크립트가 피해자의 브라우저 내에서 실행되기 때문에 정상적인 요청으로 인식해서 이러한 특정한 `content-type` 헤더도 포함되어 요청이 전송됩니다. 
+
+예를 들어, `192.168.100.1`의 버그와 `Cross-Site Scripting (XSS)` 취약점을 체이닝하면, 공격자는 악의적인 스크립트를 통해 사용자의 브라우저를 프록시 삼아 `Router`나 `Dishy`에 명령을 내리는 요청을 보낼 수 있습니다. (공격자는 Dishy의 `Stow(접기)` 및 `Unstow(펼치기)` 명령을 포함한 다양한 요청을 보낼 수 있습니다.)
 
 ## PoC (Proof of Concept)
 
 ---
 
 그러므로, `Cross-Site Scripting (XSS)` 취약점과 앞서 언급한 버그를 체이닝해서 `Dishy`에 `Stow` gRPC 요청을 보내는 페이로드는 다음과 같이 구성할 수 있습니다.
+(결과적으로 공격자가 `Router`나 `Dishy`를 원격으로 조종할 수 있게 됩니다. 예를 들어, 라우터 설정을 변경하거나 Dishy의 기능을 조작하는 명령을 보낼 수 있습니다.)
 
 ```html
 <html>
