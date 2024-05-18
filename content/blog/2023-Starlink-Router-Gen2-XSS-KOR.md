@@ -1,5 +1,5 @@
 ---
-title: "2023 SpaceX / Starlink Router Gen 2 XSS (KOR)"
+title: "2023 SPACEX / STARLINK Router Gen 2 XSS (KOR)"
 description: "Found by Sehyoung Lee @hackintoanetwork"
 dateString: Dec 2023
 draft: false
