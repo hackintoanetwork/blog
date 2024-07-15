@@ -1,6 +1,6 @@
 ---
 title: "2023 SPACEX / STARLINK Router Gen 2 XSS (ENG)"
-description: "Found by Sehyoung Lee @hackintoanetwork"
+description: "Found by @hackintoanetwork"
 dateString: Dec 2023
 draft: false
 tags: ["SpaceX", "Starlink", "Router", "Dishy" ,"Exploit", "Hacking", "CVE-2023-49965"]
