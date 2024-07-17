@@ -1,5 +1,5 @@
 ---
-title: "2023 SPACEX / STARLINK Router Gen 2 XSS (ENG)"
+title: "CVE-2023-49965 | SPACEX / STARLINK (ENG)"
 description: "Found by @hackintoanetwork"
 dateString: Dec 2023
 draft: false
