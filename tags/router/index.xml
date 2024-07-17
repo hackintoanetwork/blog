@@ -7,15 +7,6 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language><atom:link href="https://hackintoanetwork.com/tags/router/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>2023 SPACEX / STARLINK DNS Rebinding Attack (ENG)</title>
-      <link>https://hackintoanetwork.com/blog/2023-starlink-dns-rebinding-attack-eng/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://hackintoanetwork.com/blog/2023-starlink-dns-rebinding-attack-eng/</guid>
-      <description>Found by Sehyoung Lee @hackintoanetwork</description>
-    </item>
-    
-    <item>
       <title>2023 SPACEX / STARLINK DNS Rebinding Attack (KOR)</title>
       <link>https://hackintoanetwork.com/blog/2023-starlink-dns-rebinding-attack-kor/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -40,6 +31,15 @@
       
       <guid>https://hackintoanetwork.com/blog/2023-starlink-router-gen2-xss-kor/</guid>
       <description>Found by @hackintoanetwork</description>
+    </item>
+    
+    <item>
+      <title>CVE-2023-52235 | SPACEX / STARLINK (ENG)</title>
+      <link>https://hackintoanetwork.com/blog/2023-starlink-dns-rebinding-attack-eng/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hackintoanetwork.com/blog/2023-starlink-dns-rebinding-attack-eng/</guid>
+      <description>Found by Sehyoung Lee @hackintoanetwork</description>
     </item>
     
   </channel>
