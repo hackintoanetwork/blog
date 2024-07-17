@@ -2,8 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://hackintoanetwork.com/blog/2023-starlink-router-gen2-xss-kor/</loc>
-  </url><url>
     <loc>https://hackintoanetwork.com/blog/</loc>
   </url><url>
     <loc>https://hackintoanetwork.com/categories/</loc>
@@ -11,6 +9,8 @@
     <loc>https://hackintoanetwork.com/tags/cve-2023-49965/</loc>
   </url><url>
     <loc>https://hackintoanetwork.com/blog/2023-starlink-router-gen2-xss-eng/</loc>
+  </url><url>
+    <loc>https://hackintoanetwork.com/blog/2023-starlink-router-gen2-xss-kor/</loc>
   </url><url>
     <loc>https://hackintoanetwork.com/tags/dishy/</loc>
   </url><url>
