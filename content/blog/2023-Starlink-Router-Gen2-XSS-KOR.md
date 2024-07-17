@@ -1,6 +1,6 @@
 ---
 title: "CVE-2023-49965 | SPACEX / STARLINK (KOR)"
-description: "Found by @hackintoanetwork"
+description: "Found by Sehyoung Lee @hackintoanetwork"
 dateString: Dec 2023
 draft: false
 tags: ["SpaceX", "Starlink", "Router", "Dishy" ,"Exploit", "Hacking", "CVE-2023-49965"]
