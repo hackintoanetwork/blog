@@ -11,7 +11,7 @@ tags: ["SpaceX", "Starlink", "Router", "Dishy" ,"Exploit", "Hacking", "DNS Rebin
 
 잘못된 링크를 따라가면 원격 공격자가 로컬 네트워크의 Starlink 'Router'와 'Dishy'를 제어할 수 있습니다.
 
-# Published Soon.
+# Will be Published Soon.
 
 ---
 
