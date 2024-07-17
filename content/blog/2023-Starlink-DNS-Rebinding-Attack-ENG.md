@@ -1,5 +1,5 @@
 ---
-title: "2023 SPACEX / STARLINK DNS Rebinding Attack (ENG)"
+title: "CVE-2023-52235 | SPACEX / STARLINK (ENG)"
 description: "Found by Sehyoung Lee @hackintoanetwork"
 dateString: Aug 2024
 draft: false
