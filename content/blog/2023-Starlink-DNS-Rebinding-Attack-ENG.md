@@ -1,7 +1,7 @@
 ---
 title: "CVE-2023-52235 | SPACEX / STARLINK (ENG)"
 description: "Found by Sehyoung Lee @hackintoanetwork"
-dateString: Aug 2024
+dateString: Dec 2023
 draft: false
 tags: ["SpaceX", "Starlink", "Router", "Dishy" ,"Exploit", "Hacking", "DNS Rebinding", "CVE-2023-52235"]
 ---
