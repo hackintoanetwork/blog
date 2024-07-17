@@ -11,7 +11,7 @@ tags: ["SpaceX", "Starlink", "Router", "Dishy" ,"Exploit", "Hacking", "DNS Rebin
 
 Following a malformed link could allow a remote attacker to take control of a Starlink `router` and `Dishy` on the local network.
 
-# Published Soon.
+# Will be Published Soon.
 
 ---
 
