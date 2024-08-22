@@ -121,7 +121,7 @@ Connection: close
     Dishy Stow Request body (Hex)
     
     ```html
-    \x00\x00\x00\x00\x03\xef\xbf\xbd\x7d\x00
+    \x00\x00\x00\x00\x03\x92\x7d\x00
     ```
     
     요청 body에는 `grpc-web+proto` 형식의 데이터가 포함되어 있으며, 이 데이터는 `Stow` 명령의 세부 사항을 담고 있을 것 입니다.
