@@ -122,7 +122,7 @@ This Request's header contains several important pieces of information.
     Dishy Stow Request body (Hex)
     
     ```html
-    \x00\x00\x00\x00\x03\xef\xbf\xbd\x7d\x00
+    \x00\x00\x00\x00\x03\x92\x7d\x00
     ```
     
     The request body contains data in the **`grpc-web+proto`** format, which likely holds the details of the **`Stow`** command.
