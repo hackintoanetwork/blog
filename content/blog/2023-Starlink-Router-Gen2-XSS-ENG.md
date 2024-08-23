@@ -115,7 +115,7 @@ This Request's header contains several important pieces of information.
     
     It signifies that the data being transmitted uses the gRPC protocol and is encoded in the protobuf format.
     
-- **Request Body**
+**Request Body**
     
     ![Dishy Stow Request body (protobuf encoded)](/blog/2023-Starlink-Router-Gen2-XSS/img4.png)
     
