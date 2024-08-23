@@ -114,7 +114,7 @@ Connection: close
     
     전송되는 데이터가 `gRPC` 프로토콜을 사용하고, `protobuf` 형식으로 인코딩되었음을 나타냅니다.
     
-- **Request Body**
+**Request Body**
     
     ![Dishy Stow Request body (Hex)](/blog/2023-Starlink-Router-Gen2-XSS/img4.png)
     
