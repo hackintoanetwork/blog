@@ -23,7 +23,7 @@ tags: ["SpaceX", "Starlink", "Router", "Dishy" ,"Exploit", "Hacking", "CVE-2023-
 
 ---
 
-![img1.webp](/blog/2023-Starlink-Router-Gen2-XSS/img1.webp)
+![img1.png](/blog/2023-Starlink-Router-Gen2-XSS/img1.png)
 
 해당 취약점은 초기 `captive portal` 페이지(http://192.168.1.1/setup)에서 `ssid` 및 `password` 파라미터에 대한 입력 값 필터링이 충분하지 않아 발생합니다.
 
