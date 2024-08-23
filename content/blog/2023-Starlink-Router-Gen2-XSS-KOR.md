@@ -118,7 +118,7 @@ Connection: close
     
     ![Dishy Stow Request body (Hex)](/blog/2023-Starlink-Router-Gen2-XSS/img4.png)
     
-    Dishy Stow Request body (Hex)
+    Dishy Stow Request body (protobuf encoded)
     
     ```html
     \x00\x00\x00\x00\x03\x92\x7d\x00
