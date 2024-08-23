@@ -295,11 +295,13 @@ Connection: close
 </li>
 <li>
 <p><strong>Request Body</strong></p>
-<p><img loading="lazy" src="/blog/2023-Starlink-Router-Gen2-XSS/img4.png" alt="Dishy Stow Request body (Hex)"  />
+<p><img loading="lazy" src="/blog/2023-Starlink-Router-Gen2-XSS/img4.png" alt="Dishy Stow Request body (protobuf encoded)"  />
 </p>
 <p>Dishy Stow Request body (protobuf encoded)</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>\x00\x00\x00\x00\x03\x92\x7d\x00
 </span></span></code></pre></div><p>The request body contains data in the <strong><code>grpc-web+proto</code></strong> format, which likely holds the details of the <strong><code>Stow</code></strong> command.</p>
+<p><img loading="lazy" src="/blog/2023-Starlink-Router-Gen2-XSS/grpc-proto.png" alt="Dishy Stow Request body (protobuf decoded)"  />
+</p>
 </li>
 </ul>
 <p>Putting this information together, when a user issues a <code>Stow</code> command using the admin interface, the command is sent to <code>Dishy</code> over <code>gRPC</code>, which folds <code>Dishy</code> into a portable state.</p>
