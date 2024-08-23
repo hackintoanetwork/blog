@@ -117,21 +117,21 @@ This Request's header contains several important pieces of information.
     
 **Request Body**
     
-    ![Dishy Stow Request body (protobuf encoded)](/blog/2023-Starlink-Router-Gen2-XSS/img4.png)
+![Dishy Stow Request body (protobuf encoded)](/blog/2023-Starlink-Router-Gen2-XSS/img4.png)
     
-    Dishy Stow Request body (protobuf encoded)
+Dishy Stow Request body (protobuf encoded)
     
-    ```html
-    \x00\x00\x00\x00\x03\x92\x7d\x00
-    ```
+```html
+\x00\x00\x00\x00\x03\x92\x7d\x00
+```
     
-    The request body contains data in the **`grpc-web+proto`** format, which likely holds the details of the **`Stow`** command.
+The request body contains data in the **`grpc-web+proto`** format, which likely holds the details of the **`Stow`** command.
   
-    ![Dishy Stow Request body (protobuf decoded)](/blog/2023-Starlink-Router-Gen2-XSS/grpc-proto.png)
+![Dishy Stow Request body (protobuf decoded)](/blog/2023-Starlink-Router-Gen2-XSS/grpc-proto.png)
 
-    Based on the given byte sequence `00 00 00 00 03 92 7d 00` and its decoding results, we can confirm that the field number `2002` in the `user_terminal_frontend`'s `device.proto` file matches the `stow` functionality. This helps us understand more specifically what the byte sequence actually signifies.
+Based on the given byte sequence `00 00 00 00 03 92 7d 00` and its decoding results, we can confirm that the field number `2002` in the `user_terminal_frontend`'s `device.proto` file matches the `stow` functionality. This helps us understand more specifically what the byte sequence actually signifies.
   
-    ![device.proto](/blog/2023-Starlink-Router-Gen2-XSS/device-proto.png)
+![device.proto](/blog/2023-Starlink-Router-Gen2-XSS/device-proto.png)
   
     
 
