@@ -131,7 +131,7 @@ This Request's header contains several important pieces of information.
 
     Based on the given byte sequence `00 00 00 00 03 92 7d 00` and its decoding results, we can confirm that the field number `2002` in the `user_terminal_frontend`'s `device.proto` file matches the `stow` functionality. This helps us understand more specifically what the byte sequence actually signifies.
   
-    ![Dishy Stow Request body (protobuf decoded)](/blog/2023-Starlink-Router-Gen2-XSS/device-proto.png)
+    ![device.proto](/blog/2023-Starlink-Router-Gen2-XSS/device-proto.png)
   
     
 
