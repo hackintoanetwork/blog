@@ -125,6 +125,12 @@ Connection: close
     ```
     
     요청 body에는 `grpc-web+proto` 형식의 데이터가 포함되어 있으며, 이 데이터는 `Stow` 명령의 세부 사항을 담고 있을 것 입니다.
+
+    ![Dishy Stow Request body (protobuf decoded)](/blog/2023-Starlink-Router-Gen2-XSS/grpc-proto.png)
+
+    주어진 바이트 시퀀스 `00 00 00 00 03 92 7d 00`와 이를 디코딩한 결과를 바탕으로, `user_terminal_frontend`의 `device.proto` 파일에서 `2002` 필드 번호가 `stow` 기능과 매칭되는 것을 확인할 수 있습니다. 이를 통해 우리는 바이트 시퀀스가 실제로 어떤 의미를 가지는지 더 구체적으로 이해할 수 있습니다.
+  
+    ![device.proto](/blog/2023-Starlink-Router-Gen2-XSS/device-proto.png)
     
 
 이 정보를 종합해보면, 사용자가 관리자 인터페이스를 사용하여 `Stow` 명령을 내릴 경우, 해당 명령은 `gRPC`를 통해 `Dishy`로 전송되며, 이 과정에서 `Dishy`는 이동이 용이한 상태로 접혀집니다.
