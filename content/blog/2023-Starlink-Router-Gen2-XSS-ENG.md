@@ -117,7 +117,7 @@ This Request's header contains several important pieces of information.
     
 - **Request Body**
     
-    ![Dishy Stow Request body (Hex)](/blog/2023-Starlink-Router-Gen2-XSS/img4.png)
+    ![Dishy Stow Request body (protobuf encoded)](/blog/2023-Starlink-Router-Gen2-XSS/img4.png)
     
     Dishy Stow Request body (protobuf encoded)
     
@@ -126,6 +126,9 @@ This Request's header contains several important pieces of information.
     ```
     
     The request body contains data in the **`grpc-web+proto`** format, which likely holds the details of the **`Stow`** command.
+  
+    ![Dishy Stow Request body (protobuf decoded)](/blog/2023-Starlink-Router-Gen2-XSS/grpc-proto.png)
+  
     
 
 Putting this information together, when a user issues a `Stow` command using the admin interface, the command is sent to `Dishy` over `gRPC`, which folds `Dishy` into a portable state.
