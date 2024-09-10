@@ -104,6 +104,7 @@ pre:hover .copy-code {
   top: -0.11em;
   width: 1.5em;
   text-align: center;
+  color: white;
 }
 
 .email-icon::before {
