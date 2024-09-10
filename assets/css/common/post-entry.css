@@ -34,9 +34,9 @@
     margin: unset;
 }
 
-.first-entry .entry-content ul {
+/* .first-entry .entry-content ul {
     padding-inline-start: 20px;
-}
+} */
 
 .home-info .entry-content {
     -webkit-line-clamp: unset;
