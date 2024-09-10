@@ -86,20 +86,23 @@ pre:hover .copy-code {
 
 .contact-list {
   list-style-type: none;
-  padding-left: 1.5em;
+  padding-left: 2.5em;
+  margin-left: 0; 
 }
 
 .contact-list li {
   position: relative;
-  margin-bottom: 0.5em;
+  padding-left: 1em;
+  line-height: 1.5; 
 }
 
 .contact-list li::before {
   font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands";
   position: absolute;
   left: -1.5em;
-  width: 1em;
+  width: 1.5em;
   text-align: center;
+  top: 0.1em;
 }
 
 .email-icon::before {
@@ -115,4 +118,12 @@ pre:hover .copy-code {
 .medium-icon::before {
   content: "\f3c7";  /* medium icon */
   font-weight: 400;
+}
+
+.contact-list li::before {
+  font-size: 1.2em;
+}
+
+.contact-list li a {
+  margin-left: 0.5em;
 }
