@@ -6,8 +6,8 @@ theme: PaperMod
 menu:
   main:
     - identifier: about
-      name: About
-      url: https://hackintoanetwork.notion.site/hackintoanetwork/Profile-9675d3a929ac44c9b2cb639f716f37ff
+      name: about
+      url: /CV.html
       weight: 10
     - identifier: home
       name: Home
