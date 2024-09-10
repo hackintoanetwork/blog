@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sehyoung Lee @hackintoanetwork</title>
+    <style>
+        body {
+            background-color: #0f0f0f;
+            color: #ffffff;
+            font-family: 'Consolas', 'Courier New', monospace;
+            line-height: 1.6;
+            padding: 10px;
+            margin: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            font-size: 14px;
+        }
+        body.loaded {
+            opacity: 1;
+        }
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 10px;
+        }
+        h1, h2 {
+            color: #ffffff;
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+            font-size: 1.5em;
+        }
+        .section {
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+        }
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .section p {
+            margin-top: 5px;
+        }
+        .header {
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0;
+            display: inline-block;
+            position: relative;
+            font-size: 1.8em;
+            padding-right: 15px;
+        }
+        .header h1::after {
+            content: '|';
+            position: absolute;
+            right: 5px;
+            animation: blink 0.5s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .item-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .item {
+            background-color: #1a1a1a;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            text-align: center;
+        }
+        .section-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #3a3a3a;
+            color: #ffffff; /* Changed from #4a9fff to #ffffff */
+        }
+        @media (min-width: 768px) {
+            body {
+                font-size: 16px;
+                padding: 20px;
+            }
+            .container {
+                max-width: 800px;
+                padding: 20px;
+            }
+            h1, h2 {
+                font-size: 1.8em;
+            }
+            .header h1 {
+                font-size: 2em;
+            }
+            .item-list {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+            .section-title {
+                font-size: 1.4em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>> <span id="typed-text"></span></h1>
+        </header>
+        <main>
+            <section class="section">
+                <h1>$ whoami</h1>
+                <p>
+                    <strong>Blog:</strong> hackintoanetwork.com<br>
+                    <strong>Email:</strong> hackintoanetwork@proton.me<br>
+                    <strong>Github:</strong> https://github.com/hackintoanetwork<br>
+                </p>
+            </section>
+            <section class="section">
+                <h1>$ cat speaker.log</h1>
+                <p>
+                    <strong>2023.08.26:</strong> <strong>HackingCamp 27</strong>, PoC Security ( CTF Player to Hacker )<br>
+                    <strong>2024.08.30:</strong> <strong>CodeGate 2024</strong>, ( Attacking Starlink from the Internet )
+                </p>
+            </section>
+            <section class="section">
+                <h1>$ ls hall_of_fame/</h1>
+                <p>
+                    • <strong>Kakao</strong> Bug Bounty Hall of Fame 2023<br>
+                    • <strong>NAVER</strong> Bug Bounty Hall of Fame 2023<br>
+                    • <strong>SPACEX / STARLINK</strong> Hall of Fame 2024<br>
+                    • <strong>Patchstack</strong> 2023 April Leader Board 1st<br>
+                    • <strong>Office of Wildland Fire</strong> Hall of Fame 2024<br>
+                    • <strong>Wordfence</strong> Vulnerability Researcher Hall of Fame 2023<br>
+                </p>
+            </section>
+            <section class="section">
+                <h1>$ cat bug_bounty.txt</h1>
+                <div class="section-title">ARC Browser</div>
+                <div class="item-list" id="arc-browser-list"></div>
+
+                <div class="section-title">NAVER</div>
+                <div class="item-list" id="naver-list"></div>
+
+                <div class="section-title">SPACEX / STARLINK</div>
+                <div class="item-list" id="spacex-list"></div>
+
+                <div class="section-title">Kakao</div>
+                <div class="item-list" id="kakao-list"></div>
+
+                <div class="section-title">WordPress Plugins</div>
+                <div class="item-list" id="wordpress-list"></div>
+
+                <div class="section-title">The Department of the Interior Office of Wildland Fire</div>
+                <div class="item-list" id="wildland-fire-list"></div>
+            </section>
+        </main>
+    </div>
+    <script>
+        const text = "Sehyoung Lee";
+        const typedTextSpan = document.querySelector("#typed-text");
+        let i = 0;
+
+        function type() {
+            if (i < text.length) {
+                typedTextSpan.textContent += text.charAt(i);
+                i++;
+                setTimeout(type, 50);  
+            }
+        }
+
+        function revealSections() {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach((section, index) => {
+                setTimeout(() => {
+                    section.classList.add('visible');
+                }, index * 100); 
+            });
+        }
+
+        function createItems(containerId, items) {
+            const container = document.getElementById(containerId);
+            items.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'item';
+                itemElement.textContent = item;
+                container.appendChild(itemElement);
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.body.classList.add('loaded');
+            setTimeout(type, 500);
+            setTimeout(revealSections, 1500);
+
+            createItems('arc-browser-list', ['CVE-2024-25733']);
+            createItems('naver-list', ['NBB-2777', 'NBB-2874', 'NBB-2783']);
+            createItems('spacex-list', ['CVE-2023-49965', 'CVE-2023-52235']);
+            createItems('kakao-list', ['KV-2023-32', 'KV-2023-33', 'KV-2023-69', 'KV-2023-66', 'KV-2023-88', 'KV-2024-114']);
+            createItems('wordpress-list', [
+                "CVE-2023-29385", "CVE-2023-29441", "CVE-2023-30471", "CVE-2023-30472",
+                "CVE-2023-30487", "CVE-2023-30493", "CVE-2023-30499", "CVE-2023-30779",
+                "CVE-2023-30871", "CVE-2023-30473", "CVE-2023-31071", "CVE-2023-30868",
+                "CVE-2023-30877", "CVE-2023-31230", "CVE-2023-31233", "CVE-2023-32122",
+                "CVE-2023-32740", "CVE-2023-33313", "CVE-2023-33927", "CVE-2023-34026",
+                "CVE-2023-34185", "CVE-2023-34181", "CVE-2023-34177", "CVE-2023-34174",
+                "CVE-2023-34371", "CVE-2023-34372", "CVE-2023-35047", "CVE-2023-35043",
+                "CVE-2023-35098", "CVE-2023-35778", "CVE-2023-35780", "CVE-2023-35877",
+                "CVE-2023-35878", "CVE-2023-36508", "CVE-2023-35878", "CVE-2023-36692",
+                "CVE-2023-36693", "CVE-2023-37977", "CVE-2023-37981", "CVE-2023-40215",
+                "CVE-2023-39992", "CVE-2023-40663", "CVE-2023-41667", "CVE-2023-41668",
+                "CVE-2023-41669", "CVE-2023-45003", "CVE-2023-45064", "CVE-2023-45761",
+                "CVE-2023-45770", "CVE-2023-45771", "CVE-2023-46071", "CVE-2023-46074",
+                "CVE-2023-46075", "CVE-2023-46076", "CVE-2023-46088", "CVE-2023-46089",
+                "CVE-2023-46090", "CVE-2023-46091", "CVE-2023-46092", "CVE-2023-46093",
+                "CVE-2023-46191", "CVE-2023-46192", "CVE-2023-46193"
+            ]);
+            createItems('wildland-fire-list', ['73819c05-2601-470d-93ae-dbe4f086aa43']);
+        });
+    </script>
+</body>
+</html>
