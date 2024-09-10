@@ -6,7 +6,7 @@ theme: PaperMod
 menu:
   main:
     - identifier: about
-      name: about
+      name: CV
       url: /CV.html
       weight: 10
     - identifier: home
