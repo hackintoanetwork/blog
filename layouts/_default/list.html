@@ -60,10 +60,10 @@
       Hello, I'm Sehyoung Lee, also known as hackintoanetwork. I live in Seoul, South Korea<br> and I'm Security Researcher and Hacker.
       <a href="https://hackintoanetwork.com/about.html">Read more..</a>
     </p><br>
-    <ul class="contact-list">
-      <li class="email-icon"><a href="mailto:hackintoanetwork@duck.com" title="Email"><strong>Email</strong></a> - For any inquiries or suggestions, feel free to reach out via email.</li>
-      <li class="github-icon"><a href="https://github.com/hackintoanetwork" title="GitHub"><strong>Github</strong></a> - Check out my projects by following me on GitHub.</li>
-      <li class="medium-icon"><a href="https://medium.com/@hackintoanetwork" title="Medium"><strong>Medium</strong></a> - Connect with me and stay updated by following my Medium.</li>
+    <ul>
+      <li><a href="mailto:hackintoanetwork@duck.com" title="Email"><strong>Email</strong></a> - For any inquiries or suggestions, feel free to reach out via email.</li>
+      <li><a href="https://github.com/hackintoanetwork" title="GitHub."><strong>Github</strong></a> - Check out my projects by following me on GitHub.</li>
+      <li><a href="https://medium.com/@hackintoanetwork" title="Medium"><strong>Medium</strong></a> - Connect with me and stay updated by following my Medium.</li>
     </ul>
   </div>
 </article>
@@ -76,12 +76,12 @@
 
 {{- $user_preferred := or site.Params.disableSpecial1stPost site.Params.homeInfoParams }}
 {{- if (and $.IsHome (eq $paginator.PageNumber 1) (eq $index 0) (not $user_preferred)) }}
-{{- $class = "first-entry" }}
+<!-- {{- $class = "first-entry home-info" }} -->
 {{- else if $term }}
 {{- $class = "post-entry tag-entry" }}
 {{- end }}
 
-<article class="{{ $class }}">
+<article class="post-entry tag-entry">
   {{- $isHidden := (site.Params.cover.hidden | default site.Params.cover.hiddenInList) }}
   {{- partial "cover.html" (dict "cxt" . "IsHome" true "isHidden" $isHidden) }}
   <header class="entry-header">
@@ -90,9 +90,10 @@
       {{- if .Draft }}<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>{{- end }}
     </h2>
   </header>
+  <!-- Added a custom param hideDescriptionInList  -->
   {{- if (ne (.Param "hideDescriptionInList") true) }}
   <div class="entry-content">
-    <p>{{ .Description | plainify | htmlUnescape }}</p>
+    <p>{{ .Description }}</p>
   </div>
   {{- end }}
   {{- if not (.Param "hideMeta") }}
