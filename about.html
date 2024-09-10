@@ -123,6 +123,7 @@
             background-color: rgba(255, 255, 255, 0.03);
             border-radius: 3px;
             transition: background-color 0.3s ease, transform 0.3s ease;
+            word-break: break-word;
         }
         .hall-of-fame a:hover {
             background-color: rgba(255, 255, 255, 0.1);
@@ -131,6 +132,30 @@
         .hall-of-fame a strong {
             font-weight: bold;
             color: #ffffff;
+        }
+        @media (max-width: 767px) {
+            body {
+                font-size: 14px;
+            }
+            .container {
+                padding: 10px;
+            }
+            h1, h2 {
+                font-size: 1.4em;
+            }
+            .header h1 {
+                font-size: 1.6em;
+            }
+            .item-list {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+            .section-title {
+                font-size: 1.2em;
+            }
+            .hall-of-fame a {
+                font-size: 0.9em;
+                padding: 2px 6px;
+            }
         }
         @media (min-width: 768px) {
             body {
