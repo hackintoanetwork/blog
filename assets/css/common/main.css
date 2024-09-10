@@ -86,44 +86,45 @@ pre:hover .copy-code {
 
 .contact-list {
   list-style-type: none;
-  padding-left: 2.5em;
-  margin-left: 0; 
+  padding-left: 2em;
+  margin-left: 0;
 }
 
 .contact-list li {
   position: relative;
-  padding-left: 1em;
-  line-height: 1.5; 
+  padding-left: 1.8em;
+  margin-bottom: 0.5em;
+  line-height: 1.4;
 }
 
 .contact-list li::before {
   font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands";
   position: absolute;
-  left: -1.5em;
+  left: 0;
+  top: 0.1em;
   width: 1.5em;
   text-align: center;
-  top: 0.1em;
 }
 
 .email-icon::before {
-  content: "\f0e0";  /* envelope icon */
+  content: "\f0e0";
   font-weight: 900;
 }
 
 .github-icon::before {
-  content: "\f09b";  /* github icon */
+  content: "\f09b";
   font-weight: 400;
 }
 
 .medium-icon::before {
-  content: "\f3c7";  /* medium icon */
+  content: "\f3c7";
   font-weight: 400;
 }
 
 .contact-list li::before {
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 
 .contact-list li a {
-  margin-left: 0.5em;
+  margin-left: 0.2em;
 }
