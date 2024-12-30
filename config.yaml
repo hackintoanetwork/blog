@@ -58,11 +58,11 @@ params:
     hiddenInList: false # hide on list pages and home
     hiddenInSingle: false # hide on single page
 
-  socialIcons:
-    - name: "email"
-      url: "hackintoanetwork@gmail.com"
-    - name: "github"
-      url: "https://github.com/hackintoanetwork"
+  # socialIcons:
+  #   - name: "email"
+  #     url: "hackintoanetwork@proton.me"
+  #   - name: "github"
+  #     url: "https://github.com/hackintoanetwork"
 
   # text search
   fuseOpts:
