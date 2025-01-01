@@ -46,7 +46,7 @@ tags: ["SpaceX", "Starlink", "Router", "Dishy" ,"Exploit", "Hacking", "CVE-2023-
 
 해당 `Cross-Site Scripting (XSS)` 취약점은 위의 PoC(Proof of Concept)처럼 `Cross-Site Request Forgery (CSRF)` 공격과 함께 활용될 수 있습니다.
 
-[reproduce(PoC).mov](/blog/2023-Starlink-Router-Gen2-XSS/reproduce(PoC).mov)
+[Proof-of-Concept.mov](/blog/2023-Starlink-Router-Gen2-XSS/reproduce(PoC).mov)
 
 # **Exploit**
 
@@ -64,7 +64,7 @@ tags: ["SpaceX", "Starlink", "Router", "Dishy" ,"Exploit", "Hacking", "CVE-2023-
     
 (원래는 `Dishy`의 내부 주소인 192.168.100.1에서는 `captive portal` 페이지에 접근할 수 없어야 합니다.)
 
-[192.168.100.1_PoC.mov](/blog/2023-Starlink-Router-Gen2-XSS/192.168.100.1_PoC.mov)
+[192.168.100.1_Proof-of-Concept.mov](/blog/2023-Starlink-Router-Gen2-XSS/192.168.100.1_PoC.mov)
 
 [http://192.168.100.1/setup](http://192.168.100.1/setup) 주소에서도 똑같이 `Cross-Site Scripting (XSS)` 취약점이 발생하는 것을 확인할 수 있습니다.
 
@@ -197,7 +197,7 @@ Dishy Stow Request body (protobuf encoded)
 
 ---
 
-[Exploit-PoC.mp4](/blog/2023-Starlink-Router-Gen2-XSS/Exploit-PoC.mp4)
+[Exploit-Demo.mp4](/blog/2023-Starlink-Router-Gen2-XSS/Exploit-PoC.mp4)
 
 # CVE
 
