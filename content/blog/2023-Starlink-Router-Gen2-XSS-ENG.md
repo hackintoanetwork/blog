@@ -121,7 +121,7 @@ This Request's header contains several important pieces of information.
     
 Dishy Stow Request body (protobuf encoded)
     
-```html
+```
 \x00\x00\x00\x00\x03\x92\x7d\x00
 ```
     
@@ -177,7 +177,7 @@ For example, by chaining a bug in `192.168.100.1` and `Cross-Site Scripting (XSS
 
 Therefore, by chaining the `Cross-Site Scripting (XSS)` vulnerability and the aforementioned `bug`, a payload that sends a `Stow gRPC` request to `Dishy` can be constructed as follows: (The result is that an attacker can remotely take control of the `router` or `Dishy`. For example, they could send `gRPC` commands to change `router settings` or manipulate `Dishy's functionality`.)
 
-```html
+```
 <html>
 	<body>
 		<h1>Dishy Stow and Unstow</h1>
