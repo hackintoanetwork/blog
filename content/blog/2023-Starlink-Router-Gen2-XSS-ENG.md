@@ -27,7 +27,7 @@ A `Cross-Site Scripting (XSS)` vulnerability in the initial `captive portal` pag
 
 The vulnerability is caused by insufficient filtering of input values for the `ssid` and `password` parameters on the initial `captive portal` page ([http://192.168.1.1/setup](http://192.168.1.1/setup)).
 
-```html
+```
 <html>
 	<body>
 		<h1>Proof of Concept</h1>
