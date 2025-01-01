@@ -46,7 +46,7 @@ The vulnerability is caused by insufficient filtering of input values for the `s
 
 This `Cross-Site Scripting (XSS)` vulnerability can be leveraged in conjunction with a `Cross-Site Request Forgery (CSRF)` attack, as shown in the `proof of concept` above.
 
-[reproduce(PoC).mov](/blog/2023-Starlink-Router-Gen2-XSS/reproduce(PoC).mov)
+[Proof-of-Concept.mov](/blog/2023-Starlink-Router-Gen2-XSS/reproduce(PoC).mov)
 
 # **Exploit**
 
@@ -67,7 +67,7 @@ Normally, the `captive portal` page should only be active on the `router's inter
 
 Using such a bug along with the `Cross-Site Scripting (XSS)` vulnerability allows for the circumvention of the browser's `Same-Origin Policy (SOP)`, enabling control over both the Router and Dishy.
 
-[192.168.100.1_PoC.mov](/blog/2023-Starlink-Router-Gen2-XSS/192.168.100.1_PoC.mov)
+[192.168.100.1_Proof-of-Concept.mov](/blog/2023-Starlink-Router-Gen2-XSS/192.168.100.1_PoC.mov)
 
 It can be confirmed that the same `Cross-Site Scripting (XSS)` vulnerability occurs at the address [http://192.168.100.1/setup](http://192.168.100.1/setup) as well.
 
@@ -198,7 +198,7 @@ Therefore, by chaining the `Cross-Site Scripting (XSS)` vulnerability and the af
 
 ---
 
-[Exploit-PoC.mp4](/blog/2023-Starlink-Router-Gen2-XSS/Exploit-PoC.mp4)
+[Exploit-Demo.mp4](/blog/2023-Starlink-Router-Gen2-XSS/Exploit-PoC.mp4)
 
 # CVE
 
