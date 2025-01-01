@@ -153,21 +153,11 @@
     border-radius: var(--radius);
 }
 
-/* 하이라이트 코드 블록 스타일링 */
 .post-content .highlight:not(table) {
     margin: 10px auto;
+    background: var(--hljs-bg) !important;
     border-radius: var(--radius);
     direction: ltr;
-}
-
-/* 라이트 모드 하이라이트 */
-:root:not(.dark) .post-content .highlight:not(table) {
-    background: #f6f8fa !important;
-}
-
-/* 다크 모드 하이라이트 */
-.dark .post-content .highlight:not(table) {
-    background: var(--hljs-bg) !important;
 }
 
 .post-content li > .highlight {
@@ -203,47 +193,24 @@
     display: none;
 }
 
-/* 인라인 코드 스타일링 */
 .post-content code {
     margin: auto 4px;
     padding: 4px 6px;
     font-size: 0.78em;
     line-height: 1.5;
+    background: rgb(241, 241, 241);
     border-radius: 2px;
 }
 
-/* 라이트 모드 인라인 코드 */
-:root:not(.dark) .post-content code {
-    background: #f6f8fa;
-    color: #24292e;
-}
-
-/* 다크 모드 인라인 코드 */
-.dark .post-content code {
-    background: var(--code-bg);
-    color: rgb(213, 213, 214);
-}
-
-/* 코드 블록 기본 스타일 */
 .post-content pre code {
     display: block;
     margin: auto 0;
     padding: 10px;
+    color: rgb(213, 213, 214);
+    background: var(--hljs-bg) !important;
     border-radius: var(--radius);
     overflow-x: auto;
     word-break: break-all;
-}
-
-/* 라이트 모드 코드 블록 */
-:root:not(.dark) .post-content pre code {
-    color: #24292e;
-    background: #f6f8fa !important;
-}
-
-/* 다크 모드 코드 블록 */
-.dark .post-content pre code {
-    color: rgb(213, 213, 214);
-    background: var(--hljs-bg) !important;
 }
 
 .post-content blockquote {
@@ -401,24 +368,12 @@ h6:hover .anchor {
     user-select: none;
 }
 
-/* 스크롤바 스타일링 */
-/* 라이트 모드 스크롤바 */
-:root:not(.dark) .post-content :not(table) ::-webkit-scrollbar-thumb {
-    border: 2px solid #f6f8fa;
-    background: #959da5;
-}
-
-:root:not(.dark) .post-content :not(table) ::-webkit-scrollbar-thumb:hover {
-    background: #24292e;
-}
-
-/* 다크 모드 스크롤바 */
-.dark .post-content :not(table) ::-webkit-scrollbar-thumb {
+.post-content :not(table) ::-webkit-scrollbar-thumb {
     border: 2px solid var(--hljs-bg);
     background: rgb(113, 113, 117);
 }
 
-.dark .post-content :not(table) ::-webkit-scrollbar-thumb:hover {
+.post-content :not(table) ::-webkit-scrollbar-thumb:hover {
     background: rgb(163, 163, 165);
 }
 
