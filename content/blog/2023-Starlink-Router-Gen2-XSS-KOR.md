@@ -81,9 +81,9 @@ tags: ["SpaceX", "Starlink", "Router", "Dishy" ,"Exploit", "Hacking", "CVE-2023-
 ![Starlink Dishy Stow](/blog/2023-Starlink-Router-Gen2-XSS/gif1.gif)
 </center>
 
-관리자 인터페이스에서 `Stow`명령을 내리면 아래와 같은 HTTP Request가 `Dishy`로 전달됩니다.
+관리자 인터페이스에서 `Stow`명령을 실행하면 아래와 같은 HTTP Request가 `Dishy`로 전달됩니다.
 
-(여기서 `Stow`명령은 `Dishy` 안테나를 이동하거나 보관하기 위해 접을 수 있도록 하는 기능입니다.)
+(`Stow`명령은 `Dishy` 안테나를 이동하거나 보관하기 위해 접을 수 있도록 하는 기능입니다.)
 
 ```
 POST /SpaceX.API.Device.Device/Handle HTTP/1.1
@@ -102,7 +102,7 @@ Connection: close
 �}
 ```
 
-해당 Request의 헤더는 몇 가지 중요한 정보를 담고 있습니다.
+여기서 해당 HTTP Request의 헤더는 몇 가지 중요한 정보를 담고 있습니다.
 
 - **x-grpc-web: 1**
     
@@ -124,18 +124,18 @@ Dishy Stow Request body (protobuf encoded)
 \x00\x00\x00\x00\x03\x92\x7d\x00
 ```
     
-요청 body에는 `grpc-web+proto` 형식의 데이터가 포함되어 있으며, 이 데이터는 `Stow` 명령의 세부 사항을 담고 있을 것 입니다.
+요청 body에는 `grpc-web+proto` 형식의 바이트 시퀀스가 포함되어 있으며, 이 바이트 시퀀스는 `Stow` 명령의 세부 사항을 담고 있습니다.
 
 ![Dishy Stow Request body (protobuf decoded)](/blog/2023-Starlink-Router-Gen2-XSS/grpc-proto.png)
 
-주어진 바이트 시퀀스 `00 00 00 00 03 92 7d 00`와 이를 디코딩한 결과를 바탕으로, `user_terminal_frontend`의 `device.proto` 파일에서 `2002` 필드 번호가 `stow` 기능과 매칭되는 것을 확인할 수 있습니다. 이를 통해 우리는 바이트 시퀀스가 실제로 어떤 의미를 가지는지 더 구체적으로 이해할 수 있습니다.
+주어진 바이트 시퀀스 `00 00 00 00 03 92 7d 00`와 이를 디코딩한 결과를 바탕으로, `user_terminal_frontend`의 `device.proto` 파일에서 `2002` 필드 번호가 `stow` 기능과 매칭되는 것을 확인할 수 있습니다. 이를 통해 해당 바이트 시퀀스가 실제로 어떤 의미를 가지는지 더 구체적으로 이해할 수 있습니다.
   
 ![device.proto](/blog/2023-Starlink-Router-Gen2-XSS/device-proto.png)
     
 
-이 정보를 종합해보면, 사용자가 관리자 인터페이스를 사용하여 `Stow` 명령을 내릴 경우, 해당 명령은 `gRPC`를 통해 `Dishy`로 전송되며, 이 과정에서 `Dishy`는 이동이 용이한 상태로 접혀집니다.
+이 정보를 종합해보면, 사용자가 관리자 인터페이스를 사용하여 `Stow` 명령을 실행하면, 해당 명령은 `protobuf` 형식으로 인코딩된 후 `gRPC-Web`을 통해 `Dishy`로 전달되며 이 과정에서 안테나가 접히게 됩니다.
 
-하지만 Request를 살펴보면 해당 요청을 보내는 사용자에 대한 인증이 없다는 것을 알 수 있습니다.
+하지만 HTTP Request를 살펴보면 해당 요청을 보내는 사용자에 대한 인증이 없다는 것을 알 수 있습니다.
 
 이 말은 관리자가 아닌 다른 누군가가 해당 요청을 똑같이 보내 무단으로 `Dishy`를 제어할 수 있음을 의미하는데, 해당 취약점은 공격자가 로컬 네트워크에 물리적으로 접근할 수 있어야 하므로, 원격으로 발생할 수 있는 공격에 비해 공격 범위가 제한적입니다.
 
