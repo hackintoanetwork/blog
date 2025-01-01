@@ -27,7 +27,7 @@ tags: ["SpaceX", "Starlink", "Router", "Dishy" ,"Exploit", "Hacking", "CVE-2023-
 
 해당 취약점은 초기 `captive portal` 페이지(http://192.168.1.1/setup)에서 `ssid` 및 `password` 파라미터에 대한 입력 값 필터링이 충분하지 않아 발생합니다.
 
-```html
+```
 <html>
 	<body>
 		<h1>Proof of Concept</h1>
@@ -120,7 +120,7 @@ Connection: close
     
 Dishy Stow Request body (protobuf encoded)
     
-```html
+```
 \x00\x00\x00\x00\x03\x92\x7d\x00
 ```
     
@@ -176,7 +176,7 @@ Dishy Stow Request body (protobuf encoded)
 그러므로, `Cross-Site Scripting (XSS)` 취약점과 앞서 언급한 버그를 체이닝해서 `Dishy`에 `Stow gRPC` 요청을 보내는 페이로드는 다음과 같이 구성할 수 있습니다.
 (결과적으로 공격자가 `Router`나 `Dishy`를 원격으로 조종할 수 있게 됩니다. 예를 들어, `Router` 설정을 변경하거나 `Dishy`의 기능을 조작하는 명령을 보낼 수 있습니다.)
 
-```html
+```
 <html>
 	<body>
 		<h1>Dishy Stow and Unstow</h1>
