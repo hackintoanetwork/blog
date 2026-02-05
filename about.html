@@ -3,309 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@hackintoanetwork</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap">
+    <title>hackintoanetwork</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        body {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
-            color: #ffffff;
-            font-family: 'Ubuntu Mono', monospace;
-            line-height: 1.6;
+        * {
             margin: 0;
             padding: 0;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            font-size: 14px;
+            box-sizing: border-box;
+        }
+        body {
             min-height: 100vh;
             display: flex;
+            align-items: center;
             justify-content: center;
-            align-items: flex-start;
+            background: #000;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #fff;
+            text-align: center;
+            overflow: hidden;
         }
-        body.loaded {
-            opacity: 1;
+        .scaler {
+            transform-origin: center center;
         }
         .container {
-            max-width: 800px;
-            width: 100%;
-            padding: 20px;
-            padding-top: 5vh;
+            padding: 40px;
         }
-        h1, h2 {
-            color: #ffffff;
-            padding-bottom: 5px;
-            margin-bottom: 5px;
-            font-size: 1.5em;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-        }
-        .section {
-            margin-bottom: 20px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-        }
-        .section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .section p {
-            margin-top: 5px;
-        }
-        .header {
-            margin-bottom: 20px;
-        }
-        .header h1 {
-            margin: 0;
-            display: inline-block;
+        .logo-wrapper {
             position: relative;
-            font-size: 1.8em;
-            padding-right: 15px;
+            margin-bottom: 50px;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .header h1::after {
-            content: '|';
+        .logo-box {
             position: absolute;
-            right: 5px;
-            animation: blink 0.5s infinite;
+            background: #fff;
+            width: 180px;
+            height: 180px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
         }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-        .item-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .item {
-            background-color: rgba(255, 255, 255, 0.03);
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.9em;
-            text-align: center;
-        }
-        .section-title {
-            font-size: 1.2em;
-            font-weight: bold;
-            margin-top: 25px;
-            margin-bottom: 10px;
-            padding-bottom: 5px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-        }
-        a {
-            color: #ffffff;
-            text-decoration: none;
-            transition: color 0.3s ease, text-shadow 0.3s ease;
-            position: relative;
-        }
-        a:hover {
-            color: #ffffff;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
-        }
-        a::after {
+        .logo-box::before {
             content: '';
             position: absolute;
-            width: 100%;
-            height: 1px;
-            bottom: -2px;
+            top: 4px;
+            right: 4px;
+            width: 0;
+            height: 0;
+            border-left: 30px solid transparent;
+            border-top: 30px solid #000;
+        }
+        .corner-text {
+            position: absolute;
+            font-size: 12px;
+            color: #000;
+            font-weight: 300;
+            font-family: 'Inter', sans-serif;
+            z-index: 10;
+        }
+        .corner-text.top-left {
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-left: -60px;
+        }
+        .corner-text.bottom-right {
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-left: 60px;
+        }
+        .logo-text {
+            position: relative;
+            z-index: 5;
+            font-size: 72px;
+            font-weight: 700;
+            letter-spacing: -3px;
+            white-space: nowrap;
+            margin-top: -10px;
+        }
+        .logo-text-back {
+            color: #fff;
+        }
+        .logo-text-front {
+            position: absolute;
+            top: 0;
             left: 0;
-            background-color: #ffffff;
-            visibility: hidden;
-            transform: scaleX(0);
-            transition: all 0.3s ease-in-out;
+            color: #000;
+            clip-path: inset(0 calc(50% - 90px) 0 calc(50% - 90px));
         }
-        a:hover::after {
-            visibility: visible;
-            transform: scaleX(1);
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
         }
-        .hall-of-fame a {
-            display: inline-block;
-            margin-bottom: 5px;
-            padding: 3px 8px;
-            background-color: rgba(255, 255, 255, 0.03);
-            border-radius: 3px;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            word-break: break-word;
+        .links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s ease;
         }
-        .hall-of-fame a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            transform: translateX(5px);
-        }
-        .hall-of-fame a strong {
-            font-weight: bold;
-            color: #ffffff;
-        }
-        @media (max-width: 767px) {
-            body {
-                font-size: 14px;
-            }
-            .container {
-                padding: 10px;
-                padding-top: 3vh;
-            }
-            h1, h2 {
-                font-size: 1.4em;
-            }
-            .header h1 {
-                font-size: 1.6em;
-            }
-            .item-list {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            }
-            .section-title {
-                font-size: 1.2em;
-            }
-            .hall-of-fame a {
-                font-size: 0.9em;
-                padding: 2px 6px;
-            }
-        }
-        @media (min-width: 768px) {
-            body {
-                font-size: 16px;
-            }
-            h1, h2 {
-                font-size: 1.8em;
-            }
-            .header h1 {
-                font-size: 2em;
-            }
-            .item-list {
-                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            }
-            .section-title {
-                font-size: 1.4em;
-            }
+        .links a:hover {
+            color: #fff;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1>> <span id="typed-text"></span></h1>
-        </header>
-        <main>
-            <section class="section">
-                <h1>$ whoami</h1>
-                <p>
-                    <strong>Blog:</strong> <a href="https://hackintoanetwork.com/">hackintoanetwork.com</a><br>
-                    <strong>Email:</strong> <a href="mailto:hackintoanetwork@proton.me">hackintoanetwork@proton.me</a><br>
-                    <strong>Github:</strong> <a href="https://github.com/hackintoanetwork">github.com/hackintoanetwork</a><br>
-                </p>
-            </section>
-            <section class="section">
-                <h1>$ cat speaker.log</h1>
-                <p>
-                    <strong>2023.08.26:</strong> <a href="https://github.com/hackintoanetwork/Scan-WP"><strong>HackingCamp 27</strong>, PoC Security ( CTF Player to Hacker )</a><br>
-                    <strong>2024.08.30:</strong> <a href="https://codegate.org/sub/conference"><strong>CodeGate 2024</strong>, ( Attacking Starlink from the Internet )</a>
-                </p>
-            </section>
-            <section class="section hall-of-fame">
-                <h1>$ ls hall_of_fame/</h1>
-                <p>
-                    • <a href="https://bugcrowd.com/engagements/nasa-vdp/hall_of_fames"><strong>NASA</strong> Hall of Fame 2024</a><br>
-                    • <a href="https://bugcrowd.com/engagements/dnfsb-vdp/hall_of_fames"><strong>DNFSB</strong> Hall of Fame 2024</a><br>
-                    • <a href="https://cert.europa.eu/hall-of-fame"><strong>European Union</strong> Hall of Fame 2024</a><br>
-                    • <a href="https://bugcrowd.com/engagements/owf-vdp/hall_of_fames"><strong>Office of Wildland Fire</strong> Hall of Fame 2024</a><br>
-                    • <a href="https://bugcrowd.com/engagements/spacex/hall_of_fames"><strong>SpaceX / Starlink</strong> Hall of Fame 2023</a><br>
-                    • <a href="https://www.wordfence.com/threat-intel/vulnerabilities/researchers/all-time?page=3"><strong>Wordfence</strong> Hall of Fame 2023</a><br>
-                    • <a href="https://patchstack.com/database/leaderboard/april-2023"><strong>Patchstack</strong> Leader Board 2023</a><br>
-                    • <a href="https://bugbounty.naver.com/ko/halloffame_2023"><strong>Naver</strong> Bug Bounty Hall of Fame 2023</a><br>
-                    • <a href="https://bugbounty.kakao.com/notice/halloffame"><strong>Kakao</strong> Bug Bounty Hall of Fame 2023</a><br>
-                    
-                </p>
-            </section>
-            <section class="section">
-                <h1>$ cat bug_bounty.txt</h1>
-                <div class="section-title">ARC Browser</div>
-                <div class="item-list" id="arc-browser-list"></div>
-
-                <div class="section-title">NAVER</div>
-                <div class="item-list" id="naver-list"></div>
-
-                <div class="section-title">SPACEX / STARLINK</div>
-                <div class="item-list" id="spacex-list"></div>
-
-                <div class="section-title">Kakao</div>
-                <div class="item-list" id="kakao-list"></div>
-
-                <div class="section-title">WordPress Plugins</div>
-                <div class="item-list" id="wordpress-list"></div>
-
-                <div class="section-title">National Aeronautics and Space Administration (NASA)</div>
-                <div class="item-list" id="nasa-list"></div>
-
-                <div class="section-title">Defense Nuclear Facilities Safety Board (DNFSB)</div>
-                <div class="item-list" id="dnfsb-list"></div>
-
-                <div class="section-title">The Department of the Interior Office of Wildland Fire</div>
-                <div class="item-list" id="wildland-fire-list"></div>
-            </section>
-        </main>
+    <div class="scaler">
+        <div class="container">
+            <div class="logo-wrapper">
+                <div class="logo-box"></div>
+                <span class="corner-text top-left">0.0000</span>
+                <span class="corner-text bottom-right">0x7DF</span>
+                <div class="logo-text">
+                    <span class="logo-text-back">hackintoanetwork</span>
+                    <span class="logo-text-front">hackintoanetwork</span>
+                </div>
+            </div>
+            <div class="links">
+                <a href="mailto:hackintoanetwork@proton.me">info@</a>
+                <a href="https://github.com/hackintoanetwork">Github</a>
+                <a href="https://hackintoanetwork.com/">Blog</a>
+            </div>
+        </div>
     </div>
     <script>
-        const text = "hackintoanetwork";
-        const typedTextSpan = document.querySelector("#typed-text");
-        let i = 0;
-
-        function type() {
-            if (i < text.length) {
-                typedTextSpan.textContent += text.charAt(i);
-                i++;
-                setTimeout(type, 50);  
-            }
+        function scaleContent() {
+            var scaler = document.querySelector('.scaler');
+            var baseWidth = 900;
+            var scale = Math.min(window.innerWidth / baseWidth, 1);
+            scaler.style.transform = 'scale(' + scale + ')';
         }
-
-        function revealSections() {
-            const sections = document.querySelectorAll('.section');
-            sections.forEach((section, index) => {
-                setTimeout(() => {
-                    section.classList.add('visible');
-                }, index * 100); 
-            });
-        }
-
-        function createItems(containerId, items) {
-            const container = document.getElementById(containerId);
-            items.forEach(item => {
-                const itemElement = document.createElement('div');
-                itemElement.className = 'item';
-                itemElement.textContent = item;
-                container.appendChild(itemElement);
-            });
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            document.body.classList.add('loaded');
-            setTimeout(type, 500);
-            setTimeout(revealSections, 1500);
-
-            createItems('arc-browser-list', ['CVE-2024-25733']);
-            createItems('naver-list', ['NBB-2777', 'NBB-2874', 'NBB-2783']);
-            createItems('spacex-list', ['CVE-2023-49965', 'CVE-2023-52235']);
-            createItems('kakao-list', ['KV-2023-32', 'KV-2023-33', 'KV-2023-69', 'KV-2023-66', 'KV-2023-88', 'KV-2024-114']);
-            createItems('wordpress-list', [
-                "CVE-2023-29385", "CVE-2023-29441", "CVE-2023-30471", "CVE-2023-30472",
-                "CVE-2023-30487", "CVE-2023-30493", "CVE-2023-30499", "CVE-2023-30779",
-                "CVE-2023-30871", "CVE-2023-30473", "CVE-2023-31071", "CVE-2023-30868",
-                "CVE-2023-30877", "CVE-2023-31230", "CVE-2023-31233", "CVE-2023-32122",
-                "CVE-2023-32740", "CVE-2023-33313", "CVE-2023-33927", "CVE-2023-34026",
-                "CVE-2023-34185", "CVE-2023-34181", "CVE-2023-34177", "CVE-2023-34174",
-                "CVE-2023-34371", "CVE-2023-34372", "CVE-2023-35047", "CVE-2023-35043",
-                "CVE-2023-35098", "CVE-2023-35778", "CVE-2023-35780", "CVE-2023-35877",
-                "CVE-2023-35878", "CVE-2023-36508", "CVE-2023-35878", "CVE-2023-36692",
-                "CVE-2023-36693", "CVE-2023-37977", "CVE-2023-37981", "CVE-2023-40215",
-                "CVE-2023-39992", "CVE-2023-40663", "CVE-2023-41667", "CVE-2023-41668",
-                "CVE-2023-41669", "CVE-2023-45003", "CVE-2023-45064", "CVE-2023-45761",
-                "CVE-2023-45770", "CVE-2023-45771", "CVE-2023-46071", "CVE-2023-46074",
-                "CVE-2023-46075", "CVE-2023-46076", "CVE-2023-46088", "CVE-2023-46089",
-                "CVE-2023-46090", "CVE-2023-46091", "CVE-2023-46092", "CVE-2023-46093",
-                "CVE-2023-46191", "CVE-2023-46192", "CVE-2023-46193"
-            ]);
-            createItems('nasa-list', ['c024f0f7-d422-499c-812b-8f9d2f0a343d','99c984d1-8e76-41d4-b68d-3ec999411d99','e2be60ea-316e-4287-8b32-a8eb1c333027','4ee0bfb6-2112-4b96-a0ea-18f2515422c2','b69e7fa6-ce02-442b-8895-312e5b4c3439','3006a853-2dad-4c5c-9478-7fa60889ff6a','8d8b0963-0ea4-43ee-b6a1-c4bde9484170','17175e8e-942a-4870-a8db-ba0e2758a0cf','5afa5b93-a242-4da9-ad0d-33ac9fd21267']);
-            createItems('dnfsb-list', ['ddda273f-274e-4e17-9570-fdc627a62e98','bf41efe9-68ac-4bf4-a56f-85674bb4e601','acb34cba-b4d9-490d-bfef-2ba5ea1e5627'])        
-            createItems('wildland-fire-list', ['73819c05-2601-470d-93ae-dbe4f086aa43']);
-        });
+        scaleContent();
+        window.addEventListener('resize', scaleContent);
     </script>
 </body>
 </html>
