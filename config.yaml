@@ -3,29 +3,43 @@ languageCode: en-us
 title: hackintoanetwork
 theme: PaperMod
 
-menu:
-  main:
-    - identifier: about
-      name: About
-      url: /about
-      weight: 10
-    - identifier: home
-      name: Home
-      url: /
-      weight: 20
-    - identifier: blog
-      name: Blog
-      url: /blog
-      weight: 30
-    - identifier: search
-      name: Search
-      url: /search
-      weight: 40
+# menu:
+#   main:
+#     - identifier: about
+#       name: About
+#       url: /about
+#       weight: 10
+#     - identifier: home
+#       name: Home
+#       url: /
+#       weight: 20
+#     - identifier: blog
+#       name: Blog
+#       url: /blog
+#       weight: 30
+#     - identifier: search
+#       name: Search
+#       url: /search
+#       weight: 40
     # - identifier: tags
     #   name: Tags
     #   url: /tags
     #   weight: 50
-   
+
+menu:
+  main:
+    - identifier: home
+      name: Home
+      url: /
+      weight: 10
+    - identifier: blog
+      name: Blog
+      url: /blog
+      weight: 20
+    - identifier: search
+      name: Search
+      url: /search
+      weight: 30
 
 params:
   # theme
