@@ -6,7 +6,7 @@
     <title>hackintoanetwork</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -19,43 +19,43 @@
             align-items: center;
             justify-content: center;
             background: #000;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             color: #fff;
             text-align: center;
             overflow: hidden;
         }
         .scaler {
             transform-origin: center center;
+            margin-top: -15px;
         }
         .container {
             padding: 40px;
         }
         .logo-wrapper {
             position: relative;
-            margin-bottom: 50px;
-            height: 180px;
+            margin-bottom: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         .logo-box {
-            position: absolute;
+            position: relative;
             background: #fff;
-            width: 180px;
-            height: 180px;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
+            width: 170px;
+            height: 170px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .logo-box::before {
             content: '';
             position: absolute;
-            top: 4px;
-            right: 4px;
+            top: 2px;
+            right: 2px;
             width: 0;
             height: 0;
-            border-left: 30px solid transparent;
-            border-top: 30px solid #000;
+            border-left: 28px solid transparent;
+            border-top: 28px solid #000;
         }
         .corner-text {
             position: absolute;
@@ -66,50 +66,33 @@
             z-index: 10;
         }
         .corner-text.top-left {
-            top: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            margin-left: -60px;
+            top: 10px;
+            left: 10px;
         }
         .corner-text.bottom-right {
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            margin-left: 60px;
+            bottom: 10px;
+            right: 10px;
         }
-        .logo-text {
-            position: relative;
-            z-index: 5;
-            font-size: 72px;
+        .logo-letter {
+            font-size: 80px;
             font-weight: 700;
-            letter-spacing: -3px;
-            white-space: nowrap;
-            margin-top: -10px;
-        }
-        .logo-text-back {
-            color: #fff;
-        }
-        .logo-text-front {
-            position: absolute;
-            top: 0;
-            left: 0;
             color: #000;
-            clip-path: inset(0 calc(50% - 90px) 0 calc(50% - 90px));
+            font-family: 'Inter', sans-serif;
+            line-height: 1;
         }
         .links {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 16px;
             align-items: center;
         }
         .links a {
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            font-size: 18px;
-            transition: color 0.2s ease;
-        }
-        .links a:hover {
             color: #fff;
+            text-decoration: underline;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 300;
+            letter-spacing: 0.02em;
         }
     </style>
 </head>
@@ -117,17 +100,15 @@
     <div class="scaler">
         <div class="container">
             <div class="logo-wrapper">
-                <div class="logo-box"></div>
-                <span class="corner-text top-left">0.0000</span>
-                <span class="corner-text bottom-right">0x7EA</span>
-                <div class="logo-text">
-                    <span class="logo-text-back">hackintoanetwork</span>
-                    <span class="logo-text-front">hackintoanetwork</span>
+                <div class="logo-box">
+                    <span class="corner-text top-left">0.0000</span>
+                    <span class="logo-letter">H</span>
+                    <span class="corner-text bottom-right">0x7EA</span>
                 </div>
             </div>
             <div class="links">
-                <a href="mailto:hackintoanetwork@proton.me">info@</a>
-                <a href="https://github.com/hackintoanetwork">Github</a>
+                <a href="mailto:hackintoanetwork@proton.me" style="text-decoration: none;">info@</a>
+                <!-- <a href="https://github.com/hackintoanetwork">Github</a> -->
                 <a href="https://hackintoanetwork.com/blog">Blog</a>
             </div>
         </div>
@@ -135,7 +116,7 @@
     <script>
         function scaleContent() {
             var scaler = document.querySelector('.scaler');
-            var baseWidth = 1200;
+            var baseWidth = 800;
             var scale = Math.min(window.innerWidth / baseWidth, 1);
             scaler.style.transform = 'scale(' + scale + ')';
         }
