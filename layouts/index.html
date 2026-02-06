@@ -38,6 +38,10 @@
             align-items: center;
             justify-content: center;
         }
+        .logo-link {
+            text-decoration: none;
+            color: inherit;
+        }
         .logo-box {
             position: relative;
             background: #fff;
@@ -46,6 +50,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
         }
         .logo-box::before {
             content: '';
@@ -100,16 +105,17 @@
     <div class="scaler">
         <div class="container">
             <div class="logo-wrapper">
-                <div class="logo-box">
-                    <span class="corner-text top-left">0.0000</span>
-                    <span class="logo-letter">H</span>
-                    <span class="corner-text bottom-right">0x7EA</span>
-                </div>
+                <a href="https://hackintoanetwork.com/blog" class="logo-link">
+                    <div class="logo-box">
+                        <span class="corner-text top-left">0.0000</span>
+                        <span class="logo-letter">H</span>
+                        <span class="corner-text bottom-right">0x7EA</span>
+                    </div>
+                </a>
             </div>
             <div class="links">
                 <a href="mailto:hackintoanetwork@proton.me" style="text-decoration: none;">info@</a>
-                <!-- <a href="https://github.com/hackintoanetwork">Github</a> -->
-                <a href="https://hackintoanetwork.com/blog">Blog</a>
+                <a href="https://hackintoanetwork.com/key/PGP-Key.asc">PGP</a>
             </div>
         </div>
     </div>
