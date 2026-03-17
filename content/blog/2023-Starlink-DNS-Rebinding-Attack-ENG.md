@@ -271,6 +271,8 @@ In a real attack scenario, the attack can be configured to start immediately upo
 
 # Impact
 
+![img12.png](/blog/2023-Starlink-Router-Dishy-DNS-Rebinding/img12.png)
+
 - **All generations of Dishy and Starlink Router are affected**
 - Before November 2023, **1-click remote control was possible on every Starlink device in existence** through this vulnerability
 - Confidentiality breach: Exfiltration of Wi-Fi configuration (SSID, password), connected client lists, and Dishy settings
