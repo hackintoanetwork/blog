@@ -167,7 +167,7 @@ Starlink 장비는 `/SpaceX.API.Device.Device/Handle` 엔드포인트를 통해 
 관리자 페이지에서 접근할 수 없는 다수의 숨겨진 gRPC 명령이 존재하며,
 이는 Starlink 펌웨어 내 `rootfs/usr/sbin/`에 위치한 `device.proto` 파일을 추출하여 분석함으로써 확인할 수 있습니다.
 
-![img9.png](/blog/2023-Starlink-Router-Dishy-DNS-Rebinding/img9.png)
+![img9.png](/blog/2023-Starlink-Router-Gen2-XSS/device-proto.png)
 
 gRPC 요청의 HTTP 바디에는 Protobuf로 인코딩된 hex 값이 포함되어 있으며,
 이를 디코딩하면 각 명령에 해당하는 필드 번호를 확인할 수 있습니다.
