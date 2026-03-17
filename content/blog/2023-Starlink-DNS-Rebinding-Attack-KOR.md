@@ -59,7 +59,7 @@ no cookies!
 
 ---
 
-# The Problem: Same-Origin Policy (SOP)
+# Same-Origin Policy (SOP)
 
 Same-Origin Policy는 웹 페이지가 서로 다른 출처(Origin)에서 로드된 리소스에 접근하는 것을 제한하는 보안 정책입니다.
 두 URL이 같은 Origin을 가지려면 **Scheme, Host, Port**가 모두 동일해야 합니다.
