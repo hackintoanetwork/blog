@@ -28,9 +28,7 @@ Following a malformed link could allow a remote attacker to take control of a St
 In the previous vulnerability CVE-2023-49965, the Router and Dishy could be controlled through an XSS on the Captive Portal page.
 The vulnerability was classified as Moderate severity, awarded `$500` USD, and patched in version `2023.48.0`.
 
-However, CVE-2023-49965 had several limitations.
-
-( Reference : [https://hackintoanetwork.com/blog/2023-starlink-router-gen2-xss-eng](https://hackintoanetwork.com/blog/2023-starlink-router-gen2-xss-eng/) )
+However, CVE-2023-49965 had several limitations. [ref : CVE-2023-49965](https://hackintoanetwork.com/blog/2023-starlink-router-gen2-xss-eng/)
 
 - Only works on the Captive Portal `/setup` page (requires Setup mode)
 - Relies on chaining multiple vulnerabilities: XSS, unauthenticated access, and the `/setup` path bug
