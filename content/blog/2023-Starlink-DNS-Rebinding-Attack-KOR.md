@@ -28,9 +28,7 @@ tags: ["SpaceX", "Starlink", "Router", "Dishy", "Exploit", "Hacking", "DNS Rebin
 이전 취약점인 CVE-2023-49965에서는 Captive Portal 페이지의 XSS를 통해 Router와 Dishy를 제어할 수 있었습니다.
 해당 취약점은 Moderate 등급으로 분류되어 `$500` USD가 지급되었으며, `2023.48.0` 버전에서 패치되었습니다.
 
-하지만 이 CVE-2023-49965 취약점에는 여러 한계가 있었습니다.
-
-( 참고 : [https://hackintoanetwork.com/blog/2023-starlink-router-gen2-xss-eng](https://hackintoanetwork.com/blog/2023-starlink-router-gen2-xss-eng/) )
+하지만 이 CVE-2023-49965 취약점에는 여러 한계가 있었습니다. [참고 : CVE-2023-49965](https://hackintoanetwork.com/blog/2023-starlink-router-gen2-xss-kor/)
 
 - Captive Portal `/setup` 페이지에서만 동작 (Setup 모드 필요)
 - XSS, 비인증 접근, `/setup` 경로 버그 등 여러 취약점의 체이닝에 의존
