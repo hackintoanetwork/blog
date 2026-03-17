@@ -59,7 +59,7 @@ can access the devices without authorization**.
 
 ---
 
-# The Problem: Same-Origin Policy (SOP)
+# Same-Origin Policy (SOP)
 
 The Same-Origin Policy is a security policy that restricts web pages from accessing resources loaded from different origins.
 For two URLs to have the same Origin, the **Scheme, Host, and Port** must all be identical.
