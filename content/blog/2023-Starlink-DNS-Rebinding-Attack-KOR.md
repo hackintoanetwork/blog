@@ -14,9 +14,10 @@ tags: ["SpaceX", "Starlink", "Router", "Dishy", "Exploit", "Hacking", "DNS Rebin
 
 # The Basics
 
-- **Product:** Starlink Router Gen (All Generations), Starlink Dishy (All Generations)
-- **Tested Version:** Before 2023.53.0
-- **Bug-class:** DNS Rebinding
+- **Product :** Starlink Router Gen (All Generations), Starlink Dishy (All Generations)
+- **Tested Version :** 2023.53.0 Before
+- **Bug-class :** DNS Rebinding
+- **CVE :** CVE-2023-52235 (CVSS 8.8)
 
 ---
 
