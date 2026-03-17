@@ -167,7 +167,7 @@ Starlink devices communicate via the gRPC-Web protocol through the `/SpaceX.API.
 There are numerous hidden gRPC commands that are not accessible from the admin page.
 These can be identified by extracting and analyzing the `device.proto` file located at `rootfs/usr/sbin/` in the Starlink firmware.
 
-![img9.png](blog/2023-Starlink-Router-Gen2-XSS/device-proto.png)
+![img9.png](/blog/2023-Starlink-Router-Gen2-XSS/device-proto.png)
 
 The HTTP body of gRPC requests contains hex values encoded in Protobuf.
 Decoding these reveals the field numbers corresponding to each command.
