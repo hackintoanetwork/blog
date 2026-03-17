@@ -1,4 +1,4 @@
-<img width="734" height="218" alt="img6" src="https://github.com/user-attachments/assets/ae24059a-678a-4435-b675-5f7528464f12" />---
+---
 title: "CVE-2023-52235 | SPACEX / STARLINK (KOR)"
 description: "Found by @hackintoanetwork"
 dateString: Dec 2023
