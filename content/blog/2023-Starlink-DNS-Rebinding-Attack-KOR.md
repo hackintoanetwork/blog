@@ -271,6 +271,8 @@ Singularity에 Starlink 전용 gRPC 페이로드 4가지
 
 # Impact
 
+![img12.png](/blog/2023-Starlink-Router-Dishy-DNS-Rebinding/img12.png)
+
 - **모든 세대의 Dishy 및 Starlink Router에 영향**
 - 2023년 11월 이전에는 세상에 존재하는 **모든 Starlink 장비**에서 이 취약점을 통한 **1-Click 원격 제어가 가능**
 - 기밀성 침해: Wi-Fi 설정 정보(SSID, 비밀번호), 연결된 클라이언트 목록, Dishy 설정 탈취
