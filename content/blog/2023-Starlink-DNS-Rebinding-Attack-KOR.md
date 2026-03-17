@@ -28,7 +28,7 @@ tags: ["SpaceX", "Starlink", "Router", "Dishy" ,"Exploit", "Hacking", "DNS Rebin
 
 하지만 이 CVE-2023-49965 취약점에는 여러 한계가 있었습니다.
 
-( 참고 : [https://hackintoanetwork.com/blog/2023-starlink-router-gen2-xss-eng](https://hackintoanetwork.com/blog/2023-starlink-router-gen2-xss-eng/))
+( 참고 : [https://hackintoanetwork.com/blog/2023-starlink-router-gen2-xss-eng](https://hackintoanetwork.com/blog/2023-starlink-router-gen2-xss-eng/) )
 
 - Captive Portal `/setup` 페이지에서만 동작 (Setup 모드 필요)
 - XSS, 비인증 접근, `/setup` 경로 버그 등 여러 취약점의 체이닝에 의존
