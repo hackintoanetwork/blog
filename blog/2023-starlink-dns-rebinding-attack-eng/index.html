@@ -98,8 +98,8 @@
   "keywords": [
     "SpaceX", "Starlink", "Router", "Dishy", "Exploit", "Hacking", "DNS Rebinding", "CVE-2023-52235"
   ],
-  "articleBody": "TL;DR Following a malformed link could allow a remote attacker to take control of a Starlink router and Dishy on the local network.\nWill be Published Soon. Attacking Starlink from the Internet - Codegate 2024 CVE CVE-2023-52235 TimeLine 2023-11-03 : Vulnerability reported to SpaceX/Starlink 2023-11-07 : Recognized as a security vulnerability with a severity of Severe ( Reward $7500 USD ) 2023-12-20 : Patched in the latest release For the Dishy, the fix is included in release 07dd2798-ff15-4722-a9ee-de28928aed34 For the router, the fix is included in release 2023.53.0. ",
-  "wordCount" : "88",
+  "articleBody": "TL;DR Following a malformed link could allow a remote attacker to take control of a Starlink router and Dishy on the local network.\nThe Basics Product : Starlink Router Gen (All Generations), Starlink Dishy (All Generations) Tested Version : Before 2023.53.0 Bug-class : DNS Rebinding CVE : CVE-2023-52235 (CVSS 8.8) Without mistakes, there is no progress. In the previous vulnerability CVE-2023-49965, the Router and Dishy could be controlled through an XSS on the Captive Portal page. The vulnerability was classified as Moderate severity, awarded $500 USD, and patched in version 2023.48.0.\nHowever, CVE-2023-49965 had several limitations.\n( Reference : https://hackintoanetwork.com/blog/2023-starlink-router-gen2-xss-eng )\nOnly works on the Captive Portal /setup page (requires Setup mode) Relies on chaining multiple vulnerabilities: XSS, unauthenticated access, and the /setup path bug If any one of the chained vulnerabilities is patched, the attack becomes impossible SpaceX also acknowledged these limitations and informed me that they were more interested in CSRF vulnerabilities outside of Setup mode.\nThis led me to begin the journey of finding a new attack vector.\nLan side Unauthenticated Access Analyzing the gRPC request packets of Starlink devices reveals that there are no Authentication Tokens such as cookies or sessions, and no CSRF mitigation mechanisms are applied.\nno cookies!\nThis means that any unauthenticated user connected to the Starlink Wi-Fi can access the devices without authorization.\nThe Problem: Same-Origin Policy (SOP) The Same-Origin Policy is a security policy that restricts web pages from accessing resources loaded from different origins. For two URLs to have the same Origin, the Scheme, Host, and Port must all be identical.\nConsider a scenario where an external attacker’s server (attacker.example.com) sends a gRPC request to a Starlink device (192.168.1.1 or 192.168.100.1). Due to SOP, the attacker can send the request, but cannot read the response from the Starlink device.\nBut there is an even bigger problem. Starlink’s gRPC requires a specific Content-Type header: application/grpc-web+proto. Without this header, gRPC commands will not function.\nThe gRPC-Web+Proto Header Problem When sending a gRPC request, a grpc-status:0 in the response indicates that the gRPC command was executed successfully. However, without the grpc-web+proto header, gRPC does not function on Starlink.\napplication/grpc-web+proto is not included in the Content-Types permitted by the browser’s CORS policy (text/plain, multipart/form-data, application/x-www-form-urlencoded).\nTherefore, when this header is set in a Cross-Origin request via JavaScript, the browser sends a CORS Preflight (OPTIONS request) first. Since the Starlink device does not return an appropriate Access-Control-Allow-Headers response to this Preflight request, the browser blocks the actual gRPC request entirely.\nIn conclusion, it is impossible to send gRPC requests to Starlink from the outside unless SOP is bypassed.\nThe paper by Joshua Smailes et al., “Dishing out DoS: How to Disable and Secure the Starlink User Terminal” (University of Oxford, 2023), also mentions this point:\n“However, the POST request used to configure the Starlink dish requires the content-type: application/grpc-web+proto header, making it non-simple. This is the only reason that the Starlink dish is not directly exploitable on modern browsers”\nIt’s true that it’s not simple. But it’s not impossible either.\nDNS Rebinding : SOP Bypass DNS Rebinding is an attack technique that bypasses the browser’s SOP. Normally, due to SOP, a web page created by an attacker cannot send HTTP requests to an internal network and read the responses. However, DNS Rebinding can circumvent this restriction.\nThe core of this technique is dynamically changing the IP address that the attacker’s domain points to, so that the browser communicates with a different host while still recognizing it as the same Origin. Since the Origin is identical, no CORS Preflight occurs, and the grpc-web+proto header is transmitted normally.\nIn other words, DNS Rebinding neutralizes the protections of SOP and CORS, making gRPC exploitation of the Starlink system possible.\nDNS Rebinding Attack Flow Before the attack, there are two pieces of information to know:\nattacker.example.com - the attacker’s domain address 1.2.3.4 - the attacker’s payload server and malicious DNS server IP address The attack proceeds as follows:\nStep 1: DNS Query\nThe victim visits the attacker’s web server. At this point, a DNS query for attacker.example.com is generated and sent to the attacker’s DNS server.\nStep 2: Malicious Payload Delivery\nThe attacker’s DNS server responds with 1.2.3.4 as the address for attacker.example.com. The key point here is that the DNS TTL (Time To Live) is set to 0 seconds. This causes the DNS cache to expire quickly, forcing the victim’s browser to continuously make new DNS queries for attacker.example.com.\nThe victim’s browser loads the malicious JavaScript from 1.2.3.4.\nStep 3: DNS Cache Expiration and Re-query\nThe DNS cache for attacker.example.com expires. The previously loaded malicious script requests a new DNS query for attacker.example.com from the attacker’s DNS server.\nStep 4: Internal Network Access\nThis time, the attacker’s DNS server returns the internal address of the Starlink device instead of 1.2.3.4. For the Router, this is 192.168.1.1; for Dishy, it is 192.168.100.1.\nAs a result, the victim’s browser unknowingly sends gRPC requests to the Starlink device’s internal address. From the browser’s perspective, the Origin (Scheme + Host + Port) remains the same, so SOP is not violated, and since no CORS Preflight occurs, the grpc-web+proto header is transmitted normally.\ngRPC Requests Analysis Starlink devices communicate via the gRPC-Web protocol through the /SpaceX.API.Device.Device/Handle endpoint.\nThere are numerous hidden gRPC commands that are not accessible from the admin page. These can be identified by extracting and analyzing the device.proto file located at rootfs/usr/sbin/ in the Starlink firmware.\nThe HTTP body of gRPC requests contains hex values encoded in Protobuf. Decoding these reveals the field numbers corresponding to each command.\nExploitable gRPC Requests 01. Router - WifiGetClients (Wi-Fi Client List)\nReturns detailed information about all users connected to Starlink.\nPOST /SpaceX.API.Device.Device/Handle HTTP/1.1 Host: 192.168.1.1:9001 x-grpc-web: 1 Content-Type: application/grpc-web+proto \\x00\\x00\\x00\\x00\\x04\\xd2\\xbb\\x01\\x00 Protobuf decoding: field 3002 (wifi_get_clients)\n02. Router - WifiGetConfig (Wi-Fi Configuration)\nReturns detailed configuration information of the Starlink Router. Includes SSID, security settings, and more.\nPOST /SpaceX.API.Device.Device/Handle HTTP/1.1 Host: 192.168.1.1:9001 x-grpc-web: 1 Content-Type: application/grpc-web+proto \\x00\\x00\\x00\\x00\\x04\\xca\\xbb\\x01\\x00 Protobuf decoding: field 3001 (wifi_get_config)\n03. Dishy - DishGetConfig (Dishy Configuration)\nReturns detailed configuration information of the Starlink Dishy. This command was mentioned in the Codegate 2024 presentation.\n04. Dishy - Stow / Unstow (Fold / Unfold Antenna)\nCommands to physically fold or unfold the Starlink Dishy antenna. When Stow is executed, internet connectivity is immediately severed, and the Dishy can be visually observed folding and unfolding.\nStow :\nPOST /SpaceX.API.Device.Device/Handle HTTP/1.1 Host: 192.168.100.1:9201 x-grpc-web: 1 Content-Type: application/grpc-web+proto \\x00\\x00\\x00\\x00\\x03\\x92\\x7d\\x00 Protobuf decoding: field 2002 (dish_stow), empty sub-message\nUnstow :\nPOST /SpaceX.API.Device.Device/Handle HTTP/1.1 Host: 192.168.100.1:9201 x-grpc-web: 1 Content-Type: application/grpc-web+proto \\x00\\x00\\x00\\x00\\x05\\x92\\x7d\\x02\\x08\\x01 Protobuf decoding: field 2002 (dish_stow), sub-message {field 1 = true}\nExploit The DNS Rebinding exploit toolkit was built on top of NCC Group’s Singularity of Origin, presented at DEF CON 27.\nFour Starlink-specific gRPC payloads were developed and added to Singularity (WifiGetClients, WifiGetConfig, Dishy Stow, Dishy Unstow), with the attacker’s server simultaneously running a DNS server and an HTTP server to perform DNS Rebinding.\nPoC (Proof of Concept) PoC - Github @hackintoanetwork\nThe attack begins when the “Start Attack” button is pressed. In a real attack scenario, the attack can be configured to start immediately upon page load via JavaScript, without any user interaction.\nImpact All generations of Dishy and Starlink Router are affected Before November 2023, 1-click remote control was possible on every Starlink device in existence through this vulnerability Confidentiality breach: Exfiltration of Wi-Fi configuration (SSID, password), connected client lists, and Dishy settings Availability breach: Internet connectivity disruption via antenna Stow Currently, a forced update is applied the moment a Dishy is powered on and connects to the Starlink network, so this vulnerability can no longer be exploited. This is the reason for disclosing this vulnerability.\nCVE CVE-2023-52235 TimeLine 2023-11-03 : Vulnerability reported to SpaceX/Starlink 2023-11-07 : Recognized as a security vulnerability with a severity of Severe ( Reward $7,500 USD ) 2023-12-20 : Patched in the latest release For the Dishy, the fix is included in release 07dd2798-ff15-4722-a9ee-de28928aed34 For the Router, the fix is included in release 2023.53.0 2024-03-19 : CVE-2023-52235 issued following a CVE request to Mitre (CVSS 8.8) ",
+  "wordCount" : "1343",
   "inLanguage": "en",
   "datePublished": "0001-01-01T00:00:00Z",
   "dateModified": "0001-01-01T00:00:00Z",
@@ -206,29 +206,210 @@ Dec 2023
 </div>
   </header> 
   <div class="post-content"><h1 id="tldr">TL;DR<a hidden class="anchor" aria-hidden="true" href="#tldr">#</a></h1>
+<p>Following a malformed link could allow a remote attacker to take control of a Starlink router and Dishy on the local network.</p>
 <hr>
-<p>Following a malformed link could allow a remote attacker to take control of a Starlink <code>router</code> and <code>Dishy</code> on the local network.</p>
-<h1 id="will-be-published-soon">Will be Published Soon.<a hidden class="anchor" aria-hidden="true" href="#will-be-published-soon">#</a></h1>
-<hr>
+<h1 id="the-basics">The Basics<a hidden class="anchor" aria-hidden="true" href="#the-basics">#</a></h1>
 <ul>
-<li><a href="https://codegate.org/sub/conference">Attacking Starlink from the Internet - Codegate 2024</a></li>
+<li><strong>Product :</strong> Starlink Router Gen (All Generations), Starlink Dishy (All Generations)</li>
+<li><strong>Tested Version :</strong> Before 2023.53.0</li>
+<li><strong>Bug-class :</strong> DNS Rebinding</li>
+<li><strong>CVE :</strong> CVE-2023-52235 (CVSS 8.8)</li>
 </ul>
+<hr>
+<h2 id="without-mistakes-there-is-no-progress">Without mistakes, there is no progress.<a hidden class="anchor" aria-hidden="true" href="#without-mistakes-there-is-no-progress">#</a></h2>
+<p><img loading="lazy" src="/blog/2023-Starlink-Router-Dishy-DNS-Rebinding/img1.png" alt="img1.png"  />
+</p>
+<p>In the previous vulnerability CVE-2023-49965, the Router and Dishy could be controlled through an XSS on the Captive Portal page.
+The vulnerability was classified as Moderate severity, awarded <code>$500</code> USD, and patched in version <code>2023.48.0</code>.</p>
+<p>However, CVE-2023-49965 had several limitations.</p>
+<p>( Reference : <a href="https://hackintoanetwork.com/blog/2023-starlink-router-gen2-xss-eng/">https://hackintoanetwork.com/blog/2023-starlink-router-gen2-xss-eng</a> )</p>
+<ul>
+<li>Only works on the Captive Portal <code>/setup</code> page (requires Setup mode)</li>
+<li>Relies on chaining multiple vulnerabilities: XSS, unauthenticated access, and the <code>/setup</code> path bug</li>
+<li>If any one of the chained vulnerabilities is patched, the attack becomes impossible</li>
+</ul>
+<p><img loading="lazy" src="/blog/2023-Starlink-Router-Dishy-DNS-Rebinding/img2.png" alt="img2.png"  />
+</p>
+<p>SpaceX also acknowledged these limitations and informed me that they were
+more interested in <strong>CSRF vulnerabilities outside of Setup mode</strong>.</p>
+<p><img loading="lazy" src="/blog/2023-Starlink-Router-Dishy-DNS-Rebinding/img3.png" alt="img3.png"  />
+</p>
+<p>This led me to begin the journey of finding a new attack vector.</p>
+<hr>
+<h1 id="lan-side-unauthenticated-access">Lan side Unauthenticated Access<a hidden class="anchor" aria-hidden="true" href="#lan-side-unauthenticated-access">#</a></h1>
+<p>Analyzing the gRPC request packets of Starlink devices reveals that
+there are no Authentication Tokens such as cookies or sessions, and no CSRF mitigation mechanisms are applied.</p>
+<p><img loading="lazy" src="/blog/2023-Starlink-Router-Dishy-DNS-Rebinding/img4.png" alt="img4.png"  />
+</p>
+<p>no cookies!</p>
+<p>This means that <strong>any unauthenticated user connected to the Starlink Wi-Fi
+can access the devices without authorization</strong>.</p>
+<hr>
+<h1 id="the-problem-same-origin-policy-sop">The Problem: Same-Origin Policy (SOP)<a hidden class="anchor" aria-hidden="true" href="#the-problem-same-origin-policy-sop">#</a></h1>
+<p>The Same-Origin Policy is a security policy that restricts web pages from accessing resources loaded from different origins.
+For two URLs to have the same Origin, the <strong>Scheme, Host, and Port</strong> must all be identical.</p>
+<p><img loading="lazy" src="/blog/2023-Starlink-Router-Dishy-DNS-Rebinding/sop-diagram.svg" alt="sop-diagram.svg"  />
+</p>
+<p>Consider a scenario where an external attacker&rsquo;s server (<code>attacker.example.com</code>) sends a gRPC request to a Starlink device (<code>192.168.1.1</code> or <code>192.168.100.1</code>).
+Due to SOP, the attacker can send the request, but <strong>cannot read the response</strong> from the Starlink device.</p>
+<p>But there is an even bigger problem.
+Starlink&rsquo;s gRPC requires a specific Content-Type header: <code>application/grpc-web+proto</code>.
+Without this header, gRPC commands will not function.</p>
+<hr>
+<h1 id="the-grpc-webproto-header-problem">The gRPC-Web+Proto Header Problem<a hidden class="anchor" aria-hidden="true" href="#the-grpc-webproto-header-problem">#</a></h1>
+<p>When sending a gRPC request, a <code>grpc-status:0</code> in the response indicates that the gRPC command was executed successfully.
+However, without the <code>grpc-web+proto</code> header, gRPC does not function on Starlink.</p>
+<p><img loading="lazy" src="/blog/2023-Starlink-Router-Dishy-DNS-Rebinding/img5.png" alt="img5.png"  />
+
+<img loading="lazy" src="/blog/2023-Starlink-Router-Dishy-DNS-Rebinding/img6.png" alt="img6.png"  />
+</p>
+<p><code>application/grpc-web+proto</code> is not included in the Content-Types permitted by the browser&rsquo;s CORS policy
+(<code>text/plain</code>, <code>multipart/form-data</code>, <code>application/x-www-form-urlencoded</code>).</p>
+<p>Therefore, when this header is set in a Cross-Origin request via JavaScript,
+the browser sends a CORS Preflight (OPTIONS request) first.
+Since the Starlink device does not return an appropriate <code>Access-Control-Allow-Headers</code> response to this Preflight request,
+the browser blocks the actual gRPC request entirely.</p>
+<p>In conclusion, it is <strong>impossible to send gRPC requests to Starlink from the outside unless SOP is bypassed</strong>.</p>
+<p>The paper by Joshua Smailes et al.,
+<em><a href="https://www.cs.ox.ac.uk/files/14215/2303.00582.pdf">&ldquo;Dishing out DoS: How to Disable and Secure the Starlink User Terminal&rdquo;</a></em> (University of Oxford, 2023),
+also mentions this point:</p>
+<p><img loading="lazy" src="/blog/2023-Starlink-Router-Dishy-DNS-Rebinding/img7.png" alt="img7.png"  />
+</p>
+<blockquote>
+<p><em>&ldquo;However, the POST request used to configure the Starlink dish requires the content-type: application/grpc-web+proto header, making it non-simple. This is the only reason that the Starlink dish is not directly exploitable on modern browsers&rdquo;</em></p>
+</blockquote>
+<p>It&rsquo;s true that it&rsquo;s not simple. But it&rsquo;s not impossible either.</p>
+<hr>
+<h1 id="dns-rebinding--sop-bypass">DNS Rebinding : SOP Bypass<a hidden class="anchor" aria-hidden="true" href="#dns-rebinding--sop-bypass">#</a></h1>
+<p>DNS Rebinding is an attack technique that bypasses the browser&rsquo;s SOP.
+Normally, due to SOP, a web page created by an attacker cannot send HTTP requests to an internal network and read the responses.
+However, DNS Rebinding can circumvent this restriction.</p>
+<p>The core of this technique is dynamically changing the IP address that the attacker&rsquo;s domain points to,
+so that the browser <strong>communicates with a different host while still recognizing it as the same Origin</strong>.
+Since the Origin is identical, no CORS Preflight occurs, and the <code>grpc-web+proto</code> header is transmitted normally.</p>
+<p>In other words, DNS Rebinding neutralizes the protections of SOP and CORS,
+making <strong>gRPC exploitation of the Starlink system possible</strong>.</p>
+<hr>
+<h1 id="dns-rebinding-attack-flow">DNS Rebinding Attack Flow<a hidden class="anchor" aria-hidden="true" href="#dns-rebinding-attack-flow">#</a></h1>
+<p>Before the attack, there are two pieces of information to know:</p>
+<ul>
+<li><code>attacker.example.com</code> - the attacker&rsquo;s domain address</li>
+<li><code>1.2.3.4</code> - the attacker&rsquo;s payload server and malicious DNS server IP address</li>
+</ul>
+<p>The attack proceeds as follows:</p>
+<p><img loading="lazy" src="/blog/2023-Starlink-Router-Dishy-DNS-Rebinding/attack-flow.svg" alt="attack-flow.svg"  />
+</p>
+<p><strong>Step 1: DNS Query</strong></p>
+<p>The victim visits the attacker&rsquo;s web server.
+At this point, a DNS query for <code>attacker.example.com</code> is generated and sent to the attacker&rsquo;s DNS server.</p>
+<p><strong>Step 2: Malicious Payload Delivery</strong></p>
+<p>The attacker&rsquo;s DNS server responds with <code>1.2.3.4</code> as the address for <code>attacker.example.com</code>.
+The key point here is that the DNS <strong>TTL (Time To Live) is set to 0 seconds</strong>.
+This causes the DNS cache to expire quickly, forcing the victim&rsquo;s browser to continuously make new DNS queries for <code>attacker.example.com</code>.</p>
+<p>The victim&rsquo;s browser loads the malicious JavaScript from <code>1.2.3.4</code>.</p>
+<p><strong>Step 3: DNS Cache Expiration and Re-query</strong></p>
+<p>The DNS cache for <code>attacker.example.com</code> expires.
+The previously loaded malicious script requests a new DNS query for <code>attacker.example.com</code> from the attacker&rsquo;s DNS server.</p>
+<p><strong>Step 4: Internal Network Access</strong></p>
+<p>This time, the attacker&rsquo;s DNS server returns the internal address of the Starlink device instead of <code>1.2.3.4</code>.
+For the Router, this is <code>192.168.1.1</code>; for Dishy, it is <code>192.168.100.1</code>.</p>
+<p>As a result, the victim&rsquo;s browser unknowingly sends gRPC requests to the Starlink device&rsquo;s internal address.
+From the browser&rsquo;s perspective, the Origin (Scheme + Host + Port) remains the same, so SOP is not violated,
+and since no CORS Preflight occurs, the <code>grpc-web+proto</code> header is transmitted normally.</p>
+<hr>
+<h1 id="grpc-requests-analysis">gRPC Requests Analysis<a hidden class="anchor" aria-hidden="true" href="#grpc-requests-analysis">#</a></h1>
+<p>Starlink devices communicate via the gRPC-Web protocol through the <code>/SpaceX.API.Device.Device/Handle</code> endpoint.</p>
+<p>There are numerous hidden gRPC commands that are not accessible from the admin page.
+These can be identified by extracting and analyzing the <code>device.proto</code> file located at <code>rootfs/usr/sbin/</code> in the Starlink firmware.</p>
+<p><img loading="lazy" src="/blog/2023-Starlink-Router-Dishy-DNS-Rebinding/img9.png" alt="img9.png"  />
+</p>
+<p>The HTTP body of gRPC requests contains hex values encoded in Protobuf.
+Decoding these reveals the field numbers corresponding to each command.</p>
+<hr>
+<h1 id="exploitable-grpc-requests">Exploitable gRPC Requests<a hidden class="anchor" aria-hidden="true" href="#exploitable-grpc-requests">#</a></h1>
+<p><strong>01. Router - WifiGetClients (Wi-Fi Client List)</strong></p>
+<p>Returns detailed information about all users connected to Starlink.</p>
+<pre tabindex="0"><code>POST /SpaceX.API.Device.Device/Handle HTTP/1.1
+Host: 192.168.1.1:9001
+x-grpc-web: 1
+Content-Type: application/grpc-web+proto
+
+\x00\x00\x00\x00\x04\xd2\xbb\x01\x00
+</code></pre><p>Protobuf decoding: field <code>3002</code> (wifi_get_clients)</p>
+<p><strong>02. Router - WifiGetConfig (Wi-Fi Configuration)</strong></p>
+<p>Returns detailed configuration information of the Starlink Router.
+Includes SSID, security settings, and more.</p>
+<pre tabindex="0"><code>POST /SpaceX.API.Device.Device/Handle HTTP/1.1
+Host: 192.168.1.1:9001
+x-grpc-web: 1
+Content-Type: application/grpc-web+proto
+
+\x00\x00\x00\x00\x04\xca\xbb\x01\x00
+</code></pre><p>Protobuf decoding: field <code>3001</code> (wifi_get_config)</p>
+<p><strong>03. Dishy - DishGetConfig (Dishy Configuration)</strong></p>
+<p>Returns detailed configuration information of the Starlink Dishy.
+This command was mentioned in the Codegate 2024 presentation.</p>
+<p><strong>04. Dishy - Stow / Unstow (Fold / Unfold Antenna)</strong></p>
+<p>Commands to physically fold or unfold the Starlink Dishy antenna.
+When Stow is executed, <strong>internet connectivity is immediately severed</strong>, and the Dishy can be visually observed folding and unfolding.</p>
+<p><strong>Stow :</strong></p>
+<pre tabindex="0"><code>POST /SpaceX.API.Device.Device/Handle HTTP/1.1
+Host: 192.168.100.1:9201
+x-grpc-web: 1
+Content-Type: application/grpc-web+proto
+
+\x00\x00\x00\x00\x03\x92\x7d\x00
+</code></pre><p>Protobuf decoding: field <code>2002</code> (dish_stow), empty sub-message</p>
+<p><strong>Unstow :</strong></p>
+<pre tabindex="0"><code>POST /SpaceX.API.Device.Device/Handle HTTP/1.1
+Host: 192.168.100.1:9201
+x-grpc-web: 1
+Content-Type: application/grpc-web+proto
+
+\x00\x00\x00\x00\x05\x92\x7d\x02\x08\x01
+</code></pre><p>Protobuf decoding: field <code>2002</code> (dish_stow), sub-message {field 1 = true}</p>
+<hr>
+<h1 id="exploit">Exploit<a hidden class="anchor" aria-hidden="true" href="#exploit">#</a></h1>
+<p>The DNS Rebinding exploit toolkit was built on top of NCC Group&rsquo;s
+<a href="https://github.com/nccgroup/singularity">Singularity of Origin</a>, presented at DEF CON 27.</p>
+<p>Four Starlink-specific gRPC payloads were developed and added to Singularity
+(WifiGetClients, WifiGetConfig, Dishy Stow, Dishy Unstow),
+with the attacker&rsquo;s server simultaneously running a DNS server and an HTTP server to perform DNS Rebinding.</p>
+<iframe width="100%" height="480" src="https://www.youtube.com/embed/y9-0lICNjOQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<hr>
+<h1 id="poc-proof-of-concept">PoC (Proof of Concept)<a hidden class="anchor" aria-hidden="true" href="#poc-proof-of-concept">#</a></h1>
+<p><a href="https://github.com/hackintoanetwork/CVE-2023-52235-PoC-SPACEX-STARLINK-DNS-Rebinding">PoC - Github @hackintoanetwork</a></p>
+<p>The attack begins when the &ldquo;Start Attack&rdquo; button is pressed.
+In a real attack scenario, the attack can be configured to start immediately upon page load via JavaScript, without any user interaction.</p>
+<p><img loading="lazy" src="/blog/2023-Starlink-Router-Dishy-DNS-Rebinding/img10.png" alt="img10.png"  />
+</p>
+<hr>
+<h1 id="impact">Impact<a hidden class="anchor" aria-hidden="true" href="#impact">#</a></h1>
+<ul>
+<li><strong>All generations of Dishy and Starlink Router are affected</strong></li>
+<li>Before November 2023, <strong>1-click remote control was possible on every Starlink device in existence</strong> through this vulnerability</li>
+<li>Confidentiality breach: Exfiltration of Wi-Fi configuration (SSID, password), connected client lists, and Dishy settings</li>
+<li>Availability breach: Internet connectivity disruption via antenna Stow</li>
+</ul>
+<p><strong>Currently, a forced update is applied the moment a Dishy is powered on and connects to the Starlink network, so this vulnerability can no longer be exploited.
+This is the reason for disclosing this vulnerability.</strong></p>
+<hr>
 <h1 id="cve">CVE<a hidden class="anchor" aria-hidden="true" href="#cve">#</a></h1>
-<hr>
 <ul>
-<li><a href="https://www.cve.org/CVERecord?id=CVE-2023-52235">CVE-2023-52235</a></li>
+<li><a href="https://cve.org/CVERecord?id=CVE-2023-52235">CVE-2023-52235</a></li>
 </ul>
-<h1 id="timeline">TimeLine<a hidden class="anchor" aria-hidden="true" href="#timeline">#</a></h1>
 <hr>
+<h1 id="timeline">TimeLine<a hidden class="anchor" aria-hidden="true" href="#timeline">#</a></h1>
 <ul>
-<li>2023-11-03 : Vulnerability reported to SpaceX/Starlink</li>
-<li>2023-11-07 : Recognized as a security vulnerability with a severity of Severe ( Reward <code>$7500</code> USD )</li>
-<li>2023-12-20 : Patched in the latest release
+<li><strong>2023-11-03</strong> : Vulnerability reported to SpaceX/Starlink</li>
+<li><strong>2023-11-07</strong> : Recognized as a security vulnerability with a severity of <strong>Severe</strong> ( Reward <code>$7,500</code> USD )</li>
+<li><strong>2023-12-20</strong> : Patched in the latest release
 <ul>
 <li>For the <code>Dishy</code>, the fix is included in release <code>07dd2798-ff15-4722-a9ee-de28928aed34</code></li>
-<li>For the <code>router</code>, the fix is included in release <code>2023.53.0</code>.</li>
+<li>For the <code>Router</code>, the fix is included in release <code>2023.53.0</code></li>
 </ul>
 </li>
+<li><strong>2024-03-19</strong> : CVE-2023-52235 issued following a CVE request to Mitre (CVSS 8.8)</li>
 </ul>
 
 
