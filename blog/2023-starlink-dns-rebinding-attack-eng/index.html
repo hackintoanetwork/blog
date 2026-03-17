@@ -320,7 +320,7 @@ and since no CORS Preflight occurs, the <code>grpc-web+proto</code> header is tr
 <p>Starlink devices communicate via the gRPC-Web protocol through the <code>/SpaceX.API.Device.Device/Handle</code> endpoint.</p>
 <p>There are numerous hidden gRPC commands that are not accessible from the admin page.
 These can be identified by extracting and analyzing the <code>device.proto</code> file located at <code>rootfs/usr/sbin/</code> in the Starlink firmware.</p>
-<p><img loading="lazy" src="blog/2023-Starlink-Router-Gen2-XSS/device-proto.png" alt="img9.png"  />
+<p><img loading="lazy" src="/blog/2023-Starlink-Router-Gen2-XSS/device-proto.png" alt="img9.png"  />
 </p>
 <p>The HTTP body of gRPC requests contains hex values encoded in Protobuf.
 Decoding these reveals the field numbers corresponding to each command.</p>
